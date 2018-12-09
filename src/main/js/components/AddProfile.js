@@ -32,7 +32,7 @@ class addprofile extends React.Component {
     return (
       <div>
 
-          <h3>New car</h3>
+          <h3>New profile</h3>
           <form>
             <TextField label="Name" placeholder="Name"  name="name" onChange={this.handleChange}/><br/>
             <TextField label="Host" placeholder="Host" name="host" onChange={this.handleChange}/><br/>
@@ -42,7 +42,7 @@ class addprofile extends React.Component {
           </form>     
 
         <div>
-            <Button variant="raised" color="primary" style={{'margin': '10px'}} onClick={() => this.refs.addDialog.show()}>New Car</Button>
+            <Button variant="raised" color="primary" style={{'margin': '10px'}} onClick={() => this.refs.addDialog.show()}>New Profile</Button>
         </div>
       </div>   
     );

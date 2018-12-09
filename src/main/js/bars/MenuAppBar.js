@@ -68,7 +68,7 @@ class MenuAppBar extends React.Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow}>
-              What about cars...
+              Spring Boot profiles
             </Typography>
             {auth && (
               <div>

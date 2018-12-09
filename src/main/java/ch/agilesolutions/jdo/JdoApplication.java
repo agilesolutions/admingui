@@ -25,9 +25,9 @@ public class JdoApplication {
 			
 			
 			profileRepository.save(new Profile("crm", "srp99999lx", "prd"));
-			profileRepository.save(new Profile("crm", "srp99999lx", "uat"));
-			profileRepository.save(new Profile("crm", "srp99999lx", "sit"));
-			profileRepository.save(new Profile("crm", "srp99999lx", "dev"));
+			profileRepository.save(new Profile("crm", "srp74943lx", "uat"));
+			profileRepository.save(new Profile("crm", "srp10577lx", "sit"));
+			profileRepository.save(new Profile("crm", "srp34766lx", "dev"));
 			
 		};
 	}	

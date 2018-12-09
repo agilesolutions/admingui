@@ -5,20 +5,20 @@ import MUIDataTable from "mui-datatables";
 class Profilelist extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { cars: [], open: false, message: ''};
+    this.state = { profiles: [], open: false, message: ''};
   }
 
   componentDidMount() {
 	    this.fetchCars();
 	  }
 	  
-	  // Fetch all cars
+	  // Fetch all profiles
 	  fetchCars = () => {
-	    fetch('api/profile')
+	    fetch('api/profiles')
 	    .then((response) => response.json()) 
 	    .then((responseData) => { 
 	      this.setState({ 
-	        cars: responseData._embedded.cars,
+	        profiles: responseData._embedded.profiles,
 	      }); 
 	    })
 	    .catch(err => console.error(err));   
@@ -28,7 +28,7 @@ class Profilelist extends React.Component {
 
   render() {
 	  
-	  const data = this.state.cars;
+	  const data = this.state.profiles;
 	  const rows = [];
 	  
 	  data.map(r => {

@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import ClippedDrawer from './components/ClippedDrawer';
 import registerServiceWorker from './registerServiceWorker';
 import {BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
 		<div>
 			<BrowserRouter>
-				<App />
+			  <ClippedDrawer />
 			</BrowserRouter>
 		</div>	
 		, document.getElementById('root'));
