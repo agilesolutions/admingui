@@ -41,7 +41,7 @@ export const otherMailFolderListItems = (
       <ListItemIcon>
         <Schedule />
       </ListItemIcon>
-      <ListItemText primary="Submit Deployment" />
+      <ListItemText primary="Deploy" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
