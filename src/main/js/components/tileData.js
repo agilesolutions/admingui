@@ -10,7 +10,7 @@ import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import NoteAdd from '@material-ui/icons/NoteAdd';
 import StationIcon from '@material-ui/icons/LocalGasStation';
-import MailIcon from '@material-ui/icons/Mail';
+import Schedule from '@material-ui/icons/Schedule';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ReportIcon from '@material-ui/icons/RecordVoiceOver';
 
@@ -39,7 +39,7 @@ export const otherMailFolderListItems = (
   <div>
     <ListItem button>
       <ListItemIcon>
-        <MailIcon />
+        <Schedule />
       </ListItemIcon>
       <ListItemText primary="All mail" />
     </ListItem>
