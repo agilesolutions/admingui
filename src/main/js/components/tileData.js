@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import WeekendIcon from '@material-ui/icons/Weekend';
+import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
 import DraftsIcon from '@material-ui/icons/Drafts';
-import HeadsetIcon from '@material-ui/icons/HeadsetMic';
+import NoteAdd from '@material-ui/icons/NoteAdd';
 import StationIcon from '@material-ui/icons/LocalGasStation';
 import MailIcon from '@material-ui/icons/Mail';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -22,15 +22,15 @@ export const mailFolderListItems = (
   <div>
     <ListItem button component={Link} to="/Profilelist">
       <ListItemIcon>
-        <WeekendIcon />
+        <PlaylistAdd />
       </ListItemIcon>
-      <ListItemText primary="Lazying" />
+      <ListItemText primary="List" />
     </ListItem>
     <ListItem button  component={Link} to="/addprofile">
       <ListItemIcon>
-        <HeadsetIcon />
+        <NoteAdd />
       </ListItemIcon>
-      <ListItemText primary="Calling" />
+      <ListItemText primary="Add new..." />
     </ListItem>
   </div>
 );
