@@ -13,6 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Routes from '../navigation/Routes';
+import MessageDialog from '../dialogs/MessageDialog';
 import Profilelist from './Profilelist';
 import addprofile from './addprofile';
 import { Switch, Route } from 'react-router-dom'
@@ -48,7 +49,7 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar,
 });
 
-function ClippedDrawer(props) {
+const PageTemplate = (props) => {
   const { classes } = props;
 
   return (
@@ -79,6 +80,12 @@ function ClippedDrawer(props) {
    	        </Switch>
       		</main>
       	</GridListTile>
+        <GridListTile  cols={2} style={{ height: 'auto' }}>
+		 	<Switch>
+		 		<Route exact path="/MessageDialog" component={MessageDialog} />
+		 	</Switch>
+  		</GridListTile >
+      	
       </GridList>
   );
 }
