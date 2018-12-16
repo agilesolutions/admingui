@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
-class addprofile extends React.Component {
+class AddProfile extends React.Component {
   constructor(props) {
       super(props);
       this.state = {name: '', host: '',  environment: ''};
@@ -49,4 +49,4 @@ class addprofile extends React.Component {
   }
 }
 
-export default addprofile;
+export default AddProfile;

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import MUIDataTable from "mui-datatables";
 
 // https://www.npmjs.com/package/mui-datatables
-class Profilelist extends React.Component {
+class ListProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = { profiles: [], open: false, message: ''};
@@ -56,4 +56,4 @@ class Profilelist extends React.Component {
   }
 }
 
-export default Profilelist;
+export default ListProfile;

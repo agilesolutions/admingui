@@ -12,6 +12,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import ListProfile from '../pages/ListProfile';
+import AddProfile from '../pages/AddProfile';
 import { Link } from "react-router-dom";
 
 
@@ -94,8 +96,8 @@ class MenuAppBar extends React.Component {
                   open={open}
                   onClose={this.handleClose}
                 >
-                  <MenuItem  component={Link} to="/Profilelist">Profile</MenuItem>
-                  <MenuItem  component={Link} to="/addprofile">My account</MenuItem>
+                  <MenuItem  component={Link} to="/ListProfile">Profile</MenuItem>
+                  <MenuItem  component={Link} to="/AddProfile">My account</MenuItem>
                 </Menu>
               </div>
             )}

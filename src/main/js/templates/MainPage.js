@@ -14,8 +14,8 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Routes from '../navigation/Routes';
 import MessageDialog from '../dialogs/MessageDialog';
-import Profilelist from './Profilelist';
-import addprofile from './addprofile';
+import ListProfile from '../pages/ListProfile';
+import AddProfile from '../pages/AddProfile';
 import { Switch, Route } from 'react-router-dom'
 
 
@@ -70,13 +70,12 @@ const PageTemplate = (props) => {
       		</Drawer>
       	</GridListTile>
        	<GridListTile cols={1} style={{ height: 800, width: 1300 }}>
-       	// https://stackoverflow.com/questions/49615742/how-to-properly-layout-main-contents-with-material-ui-next-mini-variant-drawer
-       	// https://stackoverflow.com/questions/50801093/material-ui-drawer-selection-how-to-route
+       	// https://github.com/MoonHighway/learning-react/tree/master/chapter-11
       		<main className={classes.content}>
      		 <Switch>
-   	        	<Route exact path="/" component={Profilelist} />
-   	        	<Route path='/Profilelist' component={Profilelist} />
-   	        	<Route path='/addprofile' component={addprofile} />
+   	        	<Route exact path="/" component={ProfileList} />
+   	        	<Route path='/ListProfile' component={ProfileList} />
+   	        	<Route path='/AddProfile' component={AddProfile} />
    	        </Switch>
       		</main>
       	</GridListTile>
@@ -90,8 +89,8 @@ const PageTemplate = (props) => {
   );
 }
 
-ClippedDrawer.propTypes = {
+PageTemplate.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ClippedDrawer);
+export default withStyles(styles)(PageTemplate);
