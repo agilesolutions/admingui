@@ -79,9 +79,11 @@ const PageTemplate = (props) => {
       		</main>
       	</GridListTile>
         <GridListTile  cols={2} style={{ height: 'auto' }}>
-		 	<Switch>
-		 		<Route exact path="/MessageDialog" component={MessageDialog} />
-		 	</Switch>
+        	<div style={{position: 'absolute', bottom: 0, width: '100%'}}>
+		 		<Switch>
+		 			<Route exact path="/MessageDialog" component={MessageDialog} />
+		 		</Switch>
+		 	</div>
   		</GridListTile >
       	
       </GridList>

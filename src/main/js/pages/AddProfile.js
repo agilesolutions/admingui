@@ -1,11 +1,12 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Snackbar from '@material-ui/core/Snackbar';
 
 class AddProfile extends React.Component {
   constructor(props) {
       super(props);
-      this.state = {name: '', host: '',  environment: ''};
+      this.state = {name: '', host: '',  environment: '', message: ''};
   }
 
   handleChange = (event) => {
@@ -23,15 +24,16 @@ class AddProfile extends React.Component {
           'Content-Type': 'application/json'},
         body: JSON.stringify(newProfile)
     })
-    .then(() => { this.props.history.push({pathname: '/MessageDialog',state: {message: 'record stored'}})})
+    .then(() => {this.state.message = 'record saved';})
     .catch(err => console.error(err));
   }
+  
   
   cancelSubmit = (event) => {
     event.preventDefault();    
     this.refs.addDialog.hide();    
   }
-  
+  //https://github.com/xotahal/react-native-material-ui/issues/258
   render() {
     return (
       <div>
@@ -45,6 +47,9 @@ class AddProfile extends React.Component {
 
         <div>
             <Button variant="raised" color="primary" style={{'margin': '10px'}} onClick={this.addProfile}>Save Profile</Button>
+        </div>
+        <div>
+        	<Snackbar ref="snackbar" message= { this.state.message } visible={ this.state.message ? true : false }/>
         </div>
       </div>   
     );
