@@ -11,5 +11,5 @@ render(
 	  <MainPage />
     </div>
   </HashRouter>,
-  document.getElementById('root')
+  document.getElementById('ReactContainer')
 )
