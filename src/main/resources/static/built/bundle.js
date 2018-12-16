@@ -63682,22 +63682,12 @@ var MessageDialog =
 function (_React$Component) {
   _inherits(MessageDialog, _React$Component);
 
-  function MessageDialog() {
-    var _getPrototypeOf2;
-
+  function MessageDialog(props) {
     var _this;
 
     _classCallCheck(this, MessageDialog);
 
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(MessageDialog)).call.apply(_getPrototypeOf2, [this].concat(args)));
-
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "state", {
-      open: true
-    });
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(MessageDialog).call(this, props));
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "handleClick", function () {
       _this.setState({
@@ -63705,6 +63695,19 @@ function (_React$Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "handleClose", function (event, reason) {
+      if (reason === 'clickaway') {
+        return;
+      }
+
+      _this.setState({
+        open: false
+      });
+    });
+
+    _this.state = {
+      open: true
+    };
     return _this;
   }
 
@@ -63725,7 +63728,14 @@ function (_React$Component) {
         },
         message: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
           id: "message-id"
-        }, this.props.message)
+        }, this.props.message),
+        action: [react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_5___default.a, {
+          key: "close",
+          "aria-label": "Close",
+          color: "inherit",
+          className: classes.close,
+          onClick: this.handleClose
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Close__WEBPACK_IMPORTED_MODULE_6___default.a, null))]
       }));
     }
   }]);
@@ -63912,7 +63922,7 @@ function (_React$Component) {
       }).then(function () {
         _this.props.history.push({
           pathname: '/MessageDialog',
-          state: {
+          props: {
             message: 'record stored'
           }
         });
