@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom'
 import MainPage from './templates/MainPage';
 import {HashRouter } from 'react-router-dom';
 

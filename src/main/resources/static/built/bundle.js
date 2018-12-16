@@ -63736,7 +63736,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 window.React = react__WEBPACK_IMPORTED_MODULE_0___default.a;
-render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["HashRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_templates_MainPage__WEBPACK_IMPORTED_MODULE_2__["default"], null))), document.getElementById('root'));
+Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["HashRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_templates_MainPage__WEBPACK_IMPORTED_MODULE_2__["default"], null))), document.getElementById('root'));
 
 /***/ }),
 
@@ -64086,14 +64086,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material-ui/core/Divider */ "./node_modules/@material-ui/core/Divider/index.js");
 /* harmony import */ var _material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _menus_MenuItems__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../menus/MenuItems */ "./src/main/js/menus/MenuItems.js");
-/* harmony import */ var _bars_MenuAppBar__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../bars/MenuAppBar */ "./src/main/js/bars/MenuAppBar.js");
-/* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @material-ui/core/Grid */ "./node_modules/@material-ui/core/Grid/index.js");
-/* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _material_ui_core_GridList__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @material-ui/core/GridList */ "./node_modules/@material-ui/core/GridList/index.js");
-/* harmony import */ var _material_ui_core_GridList__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_GridList__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _material_ui_core_GridListTile__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @material-ui/core/GridListTile */ "./node_modules/@material-ui/core/GridListTile/index.js");
-/* harmony import */ var _material_ui_core_GridListTile__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_GridListTile__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @material-ui/core/Grid */ "./node_modules/@material-ui/core/Grid/index.js");
+/* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _material_ui_core_GridList__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @material-ui/core/GridList */ "./node_modules/@material-ui/core/GridList/index.js");
+/* harmony import */ var _material_ui_core_GridList__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_GridList__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _material_ui_core_GridListTile__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @material-ui/core/GridListTile */ "./node_modules/@material-ui/core/GridListTile/index.js");
+/* harmony import */ var _material_ui_core_GridListTile__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_GridListTile__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _menus_MenuItems__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../menus/MenuItems */ "./src/main/js/menus/MenuItems.js");
+/* harmony import */ var _bars_MenuAppBar__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../bars/MenuAppBar */ "./src/main/js/bars/MenuAppBar.js");
 /* harmony import */ var _dialogs_MessageDialog__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../dialogs/MessageDialog */ "./src/main/js/dialogs/MessageDialog.js");
 /* harmony import */ var _pages_ListProfile__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../pages/ListProfile */ "./src/main/js/pages/ListProfile.js");
 /* harmony import */ var _pages_AddProfile__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../pages/AddProfile */ "./src/main/js/pages/AddProfile.js");
@@ -64152,14 +64152,14 @@ var styles = function styles(theme) {
 var PageTemplate = function PageTemplate(props) {
   var classes = props.classes;
   return (// https://material-ui.com/layout/grid/
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_GridList__WEBPACK_IMPORTED_MODULE_12___default.a, {
+    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_GridList__WEBPACK_IMPORTED_MODULE_10___default.a, {
       cellHeight: 180
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_GridListTile__WEBPACK_IMPORTED_MODULE_13___default.a, {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_GridListTile__WEBPACK_IMPORTED_MODULE_11___default.a, {
       cols: 2,
       style: {
         height: 'auto'
       }
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_bars_MenuAppBar__WEBPACK_IMPORTED_MODULE_10__["default"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_GridListTile__WEBPACK_IMPORTED_MODULE_13___default.a, {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_bars_MenuAppBar__WEBPACK_IMPORTED_MODULE_13__["default"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_GridListTile__WEBPACK_IMPORTED_MODULE_11___default.a, {
       cols: 1,
       style: {
         height: 800,
@@ -64172,7 +64172,7 @@ var PageTemplate = function PageTemplate(props) {
       }
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: classes.toolbar
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_List__WEBPACK_IMPORTED_MODULE_6___default.a, null, mailFolderListItems), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_8___default.a, null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_List__WEBPACK_IMPORTED_MODULE_6___default.a, null, otherMailFolderListItems))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_GridListTile__WEBPACK_IMPORTED_MODULE_13___default.a, {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_List__WEBPACK_IMPORTED_MODULE_6___default.a, null, _menus_MenuItems__WEBPACK_IMPORTED_MODULE_12__["MainMenuItems"]), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_8___default.a, null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_List__WEBPACK_IMPORTED_MODULE_6___default.a, null, _menus_MenuItems__WEBPACK_IMPORTED_MODULE_12__["SubMenuItems"]))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_GridListTile__WEBPACK_IMPORTED_MODULE_11___default.a, {
       cols: 1,
       style: {
         height: 800,
@@ -64183,14 +64183,14 @@ var PageTemplate = function PageTemplate(props) {
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_17__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_17__["Route"], {
       exact: true,
       path: "/",
-      component: ProfileList
+      component: _pages_ListProfile__WEBPACK_IMPORTED_MODULE_15__["default"]
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_17__["Route"], {
       path: "/ListProfile",
-      component: ProfileList
+      component: _pages_ListProfile__WEBPACK_IMPORTED_MODULE_15__["default"]
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_17__["Route"], {
       path: "/AddProfile",
       component: _pages_AddProfile__WEBPACK_IMPORTED_MODULE_16__["default"]
-    })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_GridListTile__WEBPACK_IMPORTED_MODULE_13___default.a, {
+    })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_GridListTile__WEBPACK_IMPORTED_MODULE_11___default.a, {
       cols: 2,
       style: {
         height: 'auto'

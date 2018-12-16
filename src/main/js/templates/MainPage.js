@@ -7,11 +7,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import { MainMenuItems, SubMenuItems } from '../menus/MenuItems';
-import MenuAppBar from '../bars/MenuAppBar';
 import Grid from '@material-ui/core/Grid';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
+import { MainMenuItems, SubMenuItems } from '../menus/MenuItems';
+import MenuAppBar from '../bars/MenuAppBar';
 import MessageDialog from '../dialogs/MessageDialog';
 import ListProfile from '../pages/ListProfile';
 import AddProfile from '../pages/AddProfile';
@@ -63,17 +63,17 @@ const PageTemplate = (props) => {
       						paper: classes.drawerPaper,
       						}}>
       			<div className={classes.toolbar} />
-      			<List>{mailFolderListItems}</List>
+      			<List>{MainMenuItems}</List>
       			<Divider />
-      			<List>{otherMailFolderListItems}</List>
+      			<List>{SubMenuItems}</List>
       		</Drawer>
       	</GridListTile>
        	<GridListTile cols={1} style={{ height: 800, width: 1300 }}>
        	// https://github.com/MoonHighway/learning-react/tree/master/chapter-11
       		<main className={classes.content}>
      		 <Switch>
-   	        	<Route exact path="/" component={ProfileList} />
-   	        	<Route path='/ListProfile' component={ProfileList} />
+   	        	<Route exact path="/" component={ListProfile} />
+   	        	<Route path='/ListProfile' component={ListProfile} />
    	        	<Route path='/AddProfile' component={AddProfile} />
    	        </Switch>
       		</main>

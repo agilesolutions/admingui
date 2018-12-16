@@ -18,7 +18,7 @@ import ReportIcon from '@material-ui/icons/RecordVoiceOver';
 
 
 
-export const MainMenuItems = (	
+export const MainMenuItems = (
   <div>
     <ListItem button component={Link} to="/Profilelist">
       <ListItemIcon>
@@ -33,7 +33,7 @@ export const MainMenuItems = (
       <ListItemText primary="Add new..." />
     </ListItem>
   </div>
-);
+  );
 
 export const SubMenuItems = (
   <div>
@@ -56,5 +56,4 @@ export const SubMenuItems = (
       <ListItemText primary="Spam" />
     </ListItem>
   </div>
-);
-
+  );
