@@ -18,7 +18,7 @@ import ReportIcon from '@material-ui/icons/RecordVoiceOver';
 
 
 
-export const mailFolderListItems = (	
+export const MainMenuItems = (	
   <div>
     <ListItem button component={Link} to="/Profilelist">
       <ListItemIcon>
@@ -35,7 +35,7 @@ export const mailFolderListItems = (
   </div>
 );
 
-export const otherMailFolderListItems = (
+export const SubMenuItems = (
   <div>
     <ListItem button>
       <ListItemIcon>
