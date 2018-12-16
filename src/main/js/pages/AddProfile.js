@@ -23,7 +23,7 @@ class AddProfile extends React.Component {
           'Content-Type': 'application/json'},
         body: JSON.stringify(newProfile)
     })
-    .then(() => { this.props.history.push({pathname: '/MessageDialog',props: {message: 'record stored'}})})
+    .then(() => { this.props.history.push({pathname: '/MessageDialog',state: {message: 'record stored'}})})
     .catch(err => console.error(err));
   }
   

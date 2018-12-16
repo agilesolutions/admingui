@@ -29,7 +29,7 @@ class MessageDialog extends React.Component {
 
 	    this.setState({ open: false });
   };
-
+  // https://stackoverflow.com/questions/44121069/how-to-pass-params-with-history-push-in-react-router-v4
   render() {
     const { classes } = this.props;
     return (
@@ -45,7 +45,7 @@ class MessageDialog extends React.Component {
     	          ContentProps={{
     	            'aria-describedby': 'message-id',
     	          }}
-    	          message={<span id="message-id">{this.props.message}</span>}
+    	          message={<span id="message-id">{this.props.location.state.message}</span>}
     	          action={[
     	            <IconButton
     	              key="close"

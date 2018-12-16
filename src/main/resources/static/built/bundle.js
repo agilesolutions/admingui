@@ -63713,6 +63713,7 @@ function (_React$Component) {
 
   _createClass(MessageDialog, [{
     key: "render",
+    // https://stackoverflow.com/questions/44121069/how-to-pass-params-with-history-push-in-react-router-v4
     value: function render() {
       var classes = this.props.classes;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Snackbar__WEBPACK_IMPORTED_MODULE_4___default.a, {
@@ -63728,7 +63729,7 @@ function (_React$Component) {
         },
         message: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
           id: "message-id"
-        }, this.props.message),
+        }, this.props.location.state.message),
         action: [react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_5___default.a, {
           key: "close",
           "aria-label": "Close",
@@ -63922,7 +63923,7 @@ function (_React$Component) {
       }).then(function () {
         _this.props.history.push({
           pathname: '/MessageDialog',
-          props: {
+          state: {
             message: 'record stored'
           }
         });
