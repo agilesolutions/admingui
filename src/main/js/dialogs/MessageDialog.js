@@ -6,66 +6,154 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
+// https://medium.freecodecamp.org/how-to-show-informational-messages-using-material-ui-in-a-react-web-app-5b108178608
+
 const styles = theme => ({
+
   close: {
+
     padding: theme.spacing.unit / 2,
+
   },
+
 });
 
+ 
+
+let openDialogFn;
+
+ 
+
 class MessageDialog extends React.Component {
-  constructor(props) {
-	      super(props);
-	      this.state = {open: true};
+
+  state = {
+
+    open: false,
+
+    message: '',
+
+  };
+
+ 
+
+    componentDidMount() {
+
+    openDialogFn = this.openDialog;
+
   }
+
+ 
+
+  openDialog = ({ message }) => {
+
+    this.setState({
+
+      open: true,
+
+      message,
+
+    });
+
+  };
+
+ 
 
   handleClick = () => {
-    this.setState({ open: true });
-  };
-  
-  handleClose = (event, reason) => {
-	    if (reason === 'clickaway') {
-	      return;
-	    }
 
-	    this.setState({ open: false });
+    this.setState({ open: false });
+
   };
+
+ 
+
+  handleClose = (event, reason) => {
+
+           if (reason === 'clickaway') {
+
+             return;
+
+           }
+
+ 
+
+           this.setState({ open: false });
+
+  };
+
   // https://stackoverflow.com/questions/44121069/how-to-pass-params-with-history-push-in-react-router-v4
+
   render() {
+
     const { classes } = this.props;
+
     return (
-    	      <div>
-    	        <Snackbar
-    	          anchorOrigin={{
-    	            vertical: 'bottom',
-    	            horizontal: 'left',
-    	          }}
-    	          open={this.state.open}
-    	          autoHideDuration={6000}
-    	          onClose={this.handleClose}
-    	          ContentProps={{
-    	            'aria-describedby': 'message-id',
-    	          }}
-    	          message={<span id="message-id">{this.props.location.state.message}</span>}
-    	          action={[
-    	            <IconButton
-    	              key="close"
-    	              aria-label="Close"
-    	              color="inherit"
-    	              className={classes.close}
-    	              onClick={this.handleClose}
-    	            >
-    	              <CloseIcon />
-    	            </IconButton>,
-    	          ]}
-    	        />
-    	      </div>
+
+            <div>
+
+              <Snackbar
+
+                anchorOrigin={{
+
+                  vertical: 'bottom',
+
+                  horizontal: 'left',
+
+                }}
+
+                open={this.state.open}
+
+                autoHideDuration={6000}
+
+                onClose={this.handleClose}
+
+                ContentProps={{
+
+                  'aria-describedby': 'message-id',
+
+                }}
+
+                message={<span id="message-id">{this.state.message}</span>}
+
+                action={[
+
+                  <IconButton
+
+                    key="close"
+
+                    aria-label="Close"
+
+                    color="inherit"
+
+                    className={classes.close}
+
+                    onClick={this.handleClose}
+
+                  >
+
+                    <CloseIcon />
+
+                  </IconButton>,
+
+                ]}
+
+              />
+
+            </div>
+
     );
+
   }
+
 }
 
 MessageDialog.propTypes = {
+
   classes: PropTypes.object.isRequired,
+
 };
 
-export default withStyles(styles)(MessageDialog);
+export function openDialog({ message }) {
+  openDialogFn({ message });
+}
 
+export default withStyles(styles)(MessageDialog);

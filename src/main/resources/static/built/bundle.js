@@ -63622,11 +63622,12 @@ MenuAppBar.propTypes = {
 /*!**********************************************!*\
   !*** ./src/main/js/dialogs/MessageDialog.js ***!
   \**********************************************/
-/*! exports provided: default */
+/*! exports provided: openDialog, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openDialog", function() { return openDialog; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
@@ -63667,7 +63668,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-
+ // https://medium.freecodecamp.org/how-to-show-informational-messages-using-material-ui-in-a-react-web-app-5b108178608
 
 var styles = function styles(theme) {
   return {
@@ -63677,21 +63678,43 @@ var styles = function styles(theme) {
   };
 };
 
+var openDialogFn;
+
 var MessageDialog =
 /*#__PURE__*/
 function (_React$Component) {
   _inherits(MessageDialog, _React$Component);
 
-  function MessageDialog(props) {
+  function MessageDialog() {
+    var _getPrototypeOf2;
+
     var _this;
 
     _classCallCheck(this, MessageDialog);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(MessageDialog).call(this, props));
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(MessageDialog)).call.apply(_getPrototypeOf2, [this].concat(args)));
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "state", {
+      open: false,
+      message: ''
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "openDialog", function (_ref) {
+      var message = _ref.message;
+
+      _this.setState({
+        open: true,
+        message: message
+      });
+    });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "handleClick", function () {
       _this.setState({
-        open: true
+        open: false
       });
     });
 
@@ -63705,13 +63728,15 @@ function (_React$Component) {
       });
     });
 
-    _this.state = {
-      open: true
-    };
     return _this;
   }
 
   _createClass(MessageDialog, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      openDialogFn = this.openDialog;
+    }
+  }, {
     key: "render",
     // https://stackoverflow.com/questions/44121069/how-to-pass-params-with-history-push-in-react-router-v4
     value: function render() {
@@ -63729,7 +63754,7 @@ function (_React$Component) {
         },
         message: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
           id: "message-id"
-        }, this.props.location.state.message),
+        }, this.state.message),
         action: [react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_5___default.a, {
           key: "close",
           "aria-label": "Close",
@@ -63747,6 +63772,12 @@ function (_React$Component) {
 MessageDialog.propTypes = {
   classes: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object.isRequired
 };
+function openDialog(_ref2) {
+  var message = _ref2.message;
+  openDialogFn({
+    message: message
+  });
+}
 /* harmony default export */ __webpack_exports__["default"] = (Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_2__["withStyles"])(styles)(MessageDialog));
 
 /***/ }),
@@ -63772,6 +63803,26 @@ __webpack_require__.r(__webpack_exports__);
 
 window.React = react__WEBPACK_IMPORTED_MODULE_0___default.a;
 Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["HashRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_templates_MainPage__WEBPACK_IMPORTED_MODULE_2__["default"], null))), document.getElementById('ReactContainer'));
+
+/***/ }),
+
+/***/ "./src/main/js/logic/Logic.js":
+/*!************************************!*\
+  !*** ./src/main/js/logic/Logic.js ***!
+  \************************************/
+/*! exports provided: deploy, newJob */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deploy", function() { return deploy; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "newJob", function() { return newJob; });
+var deploy = function deploy() {
+  console.log('Package deployed');
+};
+var newJob = function newJob(name) {
+  console.log('new Jenkins job ' + name + ' created');
+};
 
 /***/ }),
 
@@ -63809,8 +63860,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_icons_Delete__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_Delete__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var _material_ui_icons_RecordVoiceOver__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @material-ui/icons/RecordVoiceOver */ "./node_modules/@material-ui/icons/RecordVoiceOver.js");
 /* harmony import */ var _material_ui_icons_RecordVoiceOver__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_RecordVoiceOver__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _logic_Logic__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../logic/Logic */ "./src/main/js/logic/Logic.js");
 // https://material.io/tools/icons/?style=baseline
 // https://codesandbox.io/s/vqo8yw5om7
+
 
 
 
@@ -63838,7 +63891,8 @@ var MainMenuItems = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("
   primary: "Add new..."
 })));
 var SubMenuItems = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItem__WEBPACK_IMPORTED_MODULE_2___default.a, {
-  button: true
+  button: true,
+  onClick: _logic_Logic__WEBPACK_IMPORTED_MODULE_12__["deploy"]
 }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemIcon__WEBPACK_IMPORTED_MODULE_3___default.a, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Schedule__WEBPACK_IMPORTED_MODULE_9___default.a, null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_4___default.a, {
   primary: "Deploy"
 })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItem__WEBPACK_IMPORTED_MODULE_2___default.a, {
@@ -63868,8 +63922,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/core/TextField */ "./node_modules/@material-ui/core/TextField/index.js");
 /* harmony import */ var _material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _material_ui_core_Snackbar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/Snackbar */ "./node_modules/@material-ui/core/Snackbar/index.js");
-/* harmony import */ var _material_ui_core_Snackbar__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Snackbar__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _dialogs_MessageDialog__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../dialogs/MessageDialog */ "./src/main/js/dialogs/MessageDialog.js");
+/* harmony import */ var _logic_Logic__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../logic/Logic */ "./src/main/js/logic/Logic.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -63889,6 +63943,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -63924,7 +63979,10 @@ function (_React$Component) {
         },
         body: JSON.stringify(newProfile)
       }).then(function () {
-        _this.state.message = 'record saved';
+        Object(_dialogs_MessageDialog__WEBPACK_IMPORTED_MODULE_3__["openDialog"])({
+          message: 'Record stored.'
+        });
+        Object(_logic_Logic__WEBPACK_IMPORTED_MODULE_4__["newJob"])(newProfile.name);
       }).catch(function (err) {
         return console.error(err);
       });
@@ -63971,11 +64029,7 @@ function (_React$Component) {
           'margin': '10px'
         },
         onClick: this.addProfile
-      }, "Save Profile")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Snackbar__WEBPACK_IMPORTED_MODULE_3___default.a, {
-        ref: "snackbar",
-        message: this.state.message,
-        visible: this.state.message ? true : false
-      })));
+      }, "Save Profile")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_dialogs_MessageDialog__WEBPACK_IMPORTED_MODULE_3__["default"], null)));
     }
   }]);
 

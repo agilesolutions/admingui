@@ -13,6 +13,7 @@ import StationIcon from '@material-ui/icons/LocalGasStation';
 import Schedule from '@material-ui/icons/Schedule';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ReportIcon from '@material-ui/icons/RecordVoiceOver';
+import {deploy} from   '../logic/Logic'
 
 // https://mdbootstrap.com/docs/react/advanced/charts/
 
@@ -37,7 +38,7 @@ export const MainMenuItems = (
 
 export const SubMenuItems = (
   <div>
-    <ListItem button>
+    <ListItem button onClick={deploy}>
       <ListItemIcon>
         <Schedule />
       </ListItemIcon>
