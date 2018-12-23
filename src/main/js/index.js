@@ -10,7 +10,7 @@ render(
 
   <HashRouter>
     <div>
-		<Store.Provider value={{id: 1}}>
+		<Store.Provider value={{id: 1, name: 'test'}}>
 	  			<MainPage />
     	</Store.Provider>
     </div>

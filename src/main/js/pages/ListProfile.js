@@ -2,16 +2,21 @@ import React, {Component} from 'react';
 import MUIDataTable from "mui-datatables";
 import MessageDialog, { openDialog } from '../dialogs/MessageDialog';
 import ConfirmDialog, { askConfirmation } from '../dialogs/ConfirmDialog';
-import {Store} from '../data/Store';
+import Store from '../data/Store';
+
 
 // https://www.npmjs.com/package/mui-datatables
 class ListProfile extends React.Component {
+
+  static contextType = Store;
+
   constructor(props) {
     super(props);
     this.state = { profiles: [], open: false, message: ''};
   }
 
   componentDidMount() {
+  	    console.log(this.context);
 	    this.fetchCars();
 	  }
 	  
@@ -60,7 +65,9 @@ class ListProfile extends React.Component {
 	      	openDialog({message: 'Selected records deleted.'});
       	  },
 	      onRowClick: (rowsData) => {
-	        Store.Provider(value => {console.log('ddd')});
+	      	this.context.name = rowsData[1] + '-' + rowsData[3];
+	      	console.log(this.context);
+				        
       	  }	      
 	    };
 

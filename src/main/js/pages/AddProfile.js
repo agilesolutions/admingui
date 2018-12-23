@@ -4,8 +4,12 @@ import TextField from '@material-ui/core/TextField';
 import Snackbar from '@material-ui/core/Snackbar';
 import MessageDialog, { openDialog } from '../dialogs/MessageDialog';
 import {newJob} from   '../logic/Logic'
+import Store from '../data/Store';
 
 class AddProfile extends React.Component {
+
+  static contextType = Store;
+  
   constructor(props) {
       super(props);
       this.state = {name: '', host: '',  environment: ''};
@@ -27,7 +31,7 @@ class AddProfile extends React.Component {
         body: JSON.stringify(newProfile)
     })
     .then(() => {openDialog({ message: 'New Jenkins Job created.' });
-    			newJob(newProfile.name);})
+    			newJob(newProfile.name + '-' + newProfile.environment);})
     .catch(err => console.error(err));
   }
   

@@ -3,8 +3,12 @@ import MessageDialog, { openDialog } from '../dialogs/MessageDialog';
 
 //https://github.com/MoonHighway/learning-react/blob/master/chapter-11/company-website/src/index.js
 //https://stackoverflow.com/questions/43842793/basic-authentication-with-fetch
+
+
+
 export const deploy = () =>
  {
+ 	
  	let username = 'admin';
 	let password = 'admin';
 	let formdata = new FormData();
@@ -16,7 +20,7 @@ export const deploy = () =>
 	
 	// headers.append('Authorization', 'Basic ' + base64.encode(username + ":" + password));
 	
-	fetch('http://swagger-ui:8082/job/deploymentpipeline/buildWithParameters?profile=' + 2, {
+	fetch('http://swagger-ui:8082/view/pipelines/job/jba-prd/buildWithParameters?profile=' + 2, {
  	method: 'POST',
  	headers: headers,
  	body: formdata
@@ -33,7 +37,7 @@ export const deploy = () =>
  {
  // https://stackoverflow.com/questions/36067767/how-do-i-upload-a-file-with-the-js-fetch-api
 	
-    fetch('services/newjob')
+    fetch('services/newjob/' + name)
     .then(() => {openDialog({ message: 'New Jenkins Job created.' });
     			})
     .catch(err => console.error(err));

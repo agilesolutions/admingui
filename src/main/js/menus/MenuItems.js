@@ -14,10 +14,9 @@ import Schedule from '@material-ui/icons/Schedule';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ReportIcon from '@material-ui/icons/RecordVoiceOver';
 import {deploy} from   '../logic/Logic'
-
+import MessageDialog, { openDialog } from '../dialogs/MessageDialog';
+import Store from '../data/Store';
 // https://mdbootstrap.com/docs/react/advanced/charts/
-
-
 
 export const MainMenuItems = (
   <div>
@@ -38,7 +37,10 @@ export const MainMenuItems = (
 
 export const SubMenuItems = (
   <div>
-    <ListItem button onClick={deploy}>
+	<Store.Consumer>
+	{(name) = () => (
+	<div>
+    <ListItem button onClick={console.log({name})}>
       <ListItemIcon>
         <Schedule />
       </ListItemIcon>
@@ -56,5 +58,9 @@ export const SubMenuItems = (
       </ListItemIcon>
       <ListItemText primary="Spam" />
     </ListItem>
+        	<MessageDialog/>
+    </div>
+    )}
+	</Store.Consumer>
   </div>
   );
