@@ -59,13 +59,14 @@ public class EndPoint {
 		RestTemplate restTemplate = new RestTemplate();
 
 		
-		HttpHeaders headers = new HttpHeaders();
+		HttpHeaders headers = new HttpHeaders()	;
 		headers.setContentType(MediaType.TEXT_XML);
 		
 		// https://stackoverflow.com/questions/15909650/create-jobs-and-execute-them-in-jenkins-using-rest
 		
 		HttpEntity<String> entity = new HttpEntity<String>("", headers);
-		String answer = restTemplate.postForObject("http://localhost:8080/view/pipelines/job/" + name + "/buildWithParameters?profile=" + 2, entity, String.class);
+
+		String answer = restTemplate.postForObject("http://localhost:8080/view/pipelines/job/" + name + "/buildWithParameters?service=" + name, entity, String.class);
 
 		return answer;
 	}
