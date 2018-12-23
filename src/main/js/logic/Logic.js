@@ -20,12 +20,8 @@ export const deploy = () =>
 	
 	// headers.append('Authorization', 'Basic ' + base64.encode(username + ":" + password));
 	
-	fetch('http://localhost:8080/view/pipelines/job/jba-prd/buildWithParameters?profile=' + 2, {
- 	method: 'POST',
- 	headers: headers,
- 	body: formdata
-	})
-	.catch(err => console.error(err));
+    fetch('services/startjob/' + name)
+    	.catch(err => console.error(err));
  
 	openDialog({ message: 'Deployment pipeline executed.' });
 	

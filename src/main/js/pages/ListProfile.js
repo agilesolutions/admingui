@@ -15,14 +15,22 @@ class ListProfile extends React.Component {
     this.state = { profiles: [], open: false, message: ''};
   }
 
+  // https://stackoverflow.com/questions/33237200/fetch-response-json-gives-responsedata-undefined
+  // https://stackoverflow.com/questions/36840396/react-fetch-gives-an-empty-response-body
   componentDidMount() {
 	    this.fetchCars();
 	  }
 	  
 	  // Fetch all profiles
 	  fetchCars = () => {
-	    fetch('api/profiles')
-	    .then((response) => response.json()) 
+	    fetch('api/profiles', {
+	        method: 'GET',
+	        headers: {
+	        "Accept": "application/json",
+	        'Content-Type': 'application/json'
+	        }
+	    })
+	    .then((response) => { return response.json();}) 
 	    .then((responseData) => { 
 	      this.setState({ 
 	        profiles: responseData._embedded.profiles,
