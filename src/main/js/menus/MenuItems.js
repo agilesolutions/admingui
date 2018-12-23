@@ -21,13 +21,13 @@ import {deploy} from   '../logic/Logic'
 
 export const MainMenuItems = (
   <div>
-    <ListItem button component={Link} to="/Profilelist">
+    <ListItem button component={Link} to="/ListProfile">
       <ListItemIcon>
         <PlaylistAdd />
       </ListItemIcon>
       <ListItemText primary="List" />
     </ListItem>
-    <ListItem button  component={Link} to="/addprofile">
+    <ListItem button  component={Link} to="/AddProfile">
       <ListItemIcon>
         <NoteAdd />
       </ListItemIcon>

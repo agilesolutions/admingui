@@ -1,13 +1,14 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import MessageDialog, { openDialog } from '../dialogs/MessageDialog'
+import Snackbar from '@material-ui/core/Snackbar';
+import MessageDialog, { openDialog } from '../dialogs/MessageDialog';
 import {newJob} from   '../logic/Logic'
 
 class AddProfile extends React.Component {
   constructor(props) {
       super(props);
-      this.state = {name: '', host: '',  environment: '', message: ''};
+      this.state = {name: '', host: '',  environment: ''};
   }
 
   handleChange = (event) => {
@@ -25,7 +26,7 @@ class AddProfile extends React.Component {
           'Content-Type': 'application/json'},
         body: JSON.stringify(newProfile)
     })
-    .then(() => {openDialog({ message: 'Record stored.' });
+    .then(() => {openDialog({ message: 'New Jenkins Job created.' });
     			newJob(newProfile.name);})
     .catch(err => console.error(err));
   }
@@ -51,11 +52,8 @@ class AddProfile extends React.Component {
             <Button variant="raised" color="primary" style={{'margin': '10px'}} onClick={this.addProfile}>Save Profile</Button>
         </div>
         <div>
-
-        <MessageDialog/>
-
-   </div>
-
+        	<MessageDialog/>
+        </div>
       </div>   
     );
   }
