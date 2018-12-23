@@ -40,7 +40,7 @@ export const SubMenuItems = (
 	<Store.Consumer>
 	{(name) = () => (
 	<div>
-    <ListItem button onClick={console.log({name})}>
+    <ListItem button onClick={deploy}>
       <ListItemIcon>
         <Schedule />
       </ListItemIcon>

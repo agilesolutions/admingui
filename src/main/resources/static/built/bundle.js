@@ -64415,7 +64415,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 //https://itnext.io/understanding-the-react-context-api-through-building-a-shared-snackbar-for-in-app-notifications-6c199446b80c
 
-var Store = react__WEBPACK_IMPORTED_MODULE_0___default.a.createContext('id');
+var Store = react__WEBPACK_IMPORTED_MODULE_0___default.a.createContext();
 /* harmony default export */ __webpack_exports__["default"] = (Store);
 
 /***/ }),
@@ -64794,7 +64794,8 @@ __webpack_require__.r(__webpack_exports__);
 window.React = react__WEBPACK_IMPORTED_MODULE_0___default.a;
 Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["HashRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_data_Store__WEBPACK_IMPORTED_MODULE_4__["default"].Provider, {
   value: {
-    id: 1
+    id: 1,
+    name: 'test'
   }
 }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_templates_MainPage__WEBPACK_IMPORTED_MODULE_2__["default"], null)))), document.getElementById('ReactContainer'));
 
@@ -64827,7 +64828,7 @@ var deploy = function deploy() {
   formdata.append('username', 'testname');
   formdata.append('password', 'qawsedrf'); // headers.append('Authorization', 'Basic ' + base64.encode(username + ":" + password));
 
-  fetch('http://swagger-ui:8082/job/deploymentpipeline/buildWithParameters?profile=' + 2, {
+  fetch('http://localhost:8080/view/pipelines/job/jba-prd/buildWithParameters?profile=' + 2, {
     method: 'POST',
     headers: headers,
     body: formdata
@@ -64841,7 +64842,7 @@ var deploy = function deploy() {
 };
 var newJob = function newJob(name) {
   // https://stackoverflow.com/questions/36067767/how-do-i-upload-a-file-with-the-js-fetch-api
-  fetch('services/newjob').then(function () {
+  fetch('services/newjob/' + name).then(function () {
     Object(_dialogs_MessageDialog__WEBPACK_IMPORTED_MODULE_1__["openDialog"])({
       message: 'New Jenkins Job created.'
     });
@@ -64887,8 +64888,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_icons_RecordVoiceOver__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @material-ui/icons/RecordVoiceOver */ "./node_modules/@material-ui/icons/RecordVoiceOver.js");
 /* harmony import */ var _material_ui_icons_RecordVoiceOver__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_RecordVoiceOver__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var _logic_Logic__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../logic/Logic */ "./src/main/js/logic/Logic.js");
+/* harmony import */ var _dialogs_MessageDialog__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../dialogs/MessageDialog */ "./src/main/js/dialogs/MessageDialog.js");
+/* harmony import */ var _data_Store__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../data/Store */ "./src/main/js/data/Store.js");
 // https://material.io/tools/icons/?style=baseline
 // https://codesandbox.io/s/vqo8yw5om7
+
+
 
 
 
@@ -64916,20 +64921,22 @@ var MainMenuItems = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("
 }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemIcon__WEBPACK_IMPORTED_MODULE_3___default.a, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_NoteAdd__WEBPACK_IMPORTED_MODULE_7___default.a, null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_4___default.a, {
   primary: "Add new..."
 })));
-var SubMenuItems = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItem__WEBPACK_IMPORTED_MODULE_2___default.a, {
-  button: true,
-  onClick: _logic_Logic__WEBPACK_IMPORTED_MODULE_12__["deploy"]
-}, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemIcon__WEBPACK_IMPORTED_MODULE_3___default.a, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Schedule__WEBPACK_IMPORTED_MODULE_9___default.a, null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_4___default.a, {
-  primary: "Deploy"
-})), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItem__WEBPACK_IMPORTED_MODULE_2___default.a, {
-  button: true
-}, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemIcon__WEBPACK_IMPORTED_MODULE_3___default.a, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Delete__WEBPACK_IMPORTED_MODULE_10___default.a, null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_4___default.a, {
-  primary: "Trash"
-})), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItem__WEBPACK_IMPORTED_MODULE_2___default.a, {
-  button: true
-}, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemIcon__WEBPACK_IMPORTED_MODULE_3___default.a, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_RecordVoiceOver__WEBPACK_IMPORTED_MODULE_11___default.a, null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_4___default.a, {
-  primary: "Spam"
-})));
+var SubMenuItems = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_data_Store__WEBPACK_IMPORTED_MODULE_14__["default"].Consumer, null, name = function name() {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItem__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    button: true,
+    onClick: _logic_Logic__WEBPACK_IMPORTED_MODULE_12__["deploy"]
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemIcon__WEBPACK_IMPORTED_MODULE_3___default.a, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Schedule__WEBPACK_IMPORTED_MODULE_9___default.a, null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_4___default.a, {
+    primary: "Deploy"
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItem__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    button: true
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemIcon__WEBPACK_IMPORTED_MODULE_3___default.a, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Delete__WEBPACK_IMPORTED_MODULE_10___default.a, null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_4___default.a, {
+    primary: "Trash"
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItem__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    button: true
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemIcon__WEBPACK_IMPORTED_MODULE_3___default.a, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_RecordVoiceOver__WEBPACK_IMPORTED_MODULE_11___default.a, null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_4___default.a, {
+    primary: "Spam"
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_dialogs_MessageDialog__WEBPACK_IMPORTED_MODULE_13__["default"], null));
+}));
 
 /***/ }),
 
@@ -64952,6 +64959,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_Snackbar__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Snackbar__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _dialogs_MessageDialog__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../dialogs/MessageDialog */ "./src/main/js/dialogs/MessageDialog.js");
 /* harmony import */ var _logic_Logic__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../logic/Logic */ "./src/main/js/logic/Logic.js");
+/* harmony import */ var _data_Store__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../data/Store */ "./src/main/js/data/Store.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -64971,6 +64979,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -65011,7 +65020,7 @@ function (_React$Component) {
         Object(_dialogs_MessageDialog__WEBPACK_IMPORTED_MODULE_4__["openDialog"])({
           message: 'New Jenkins Job created.'
         });
-        Object(_logic_Logic__WEBPACK_IMPORTED_MODULE_5__["newJob"])(newProfile.name);
+        Object(_logic_Logic__WEBPACK_IMPORTED_MODULE_5__["newJob"])(newProfile.name + '-' + newProfile.environment);
       }).catch(function (err) {
         return console.error(err);
       });
@@ -65063,6 +65072,8 @@ function (_React$Component) {
 
   return AddProfile;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+_defineProperty(AddProfile, "contextType", _data_Store__WEBPACK_IMPORTED_MODULE_6__["default"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (AddProfile);
 
@@ -65151,6 +65162,8 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       var data = this.state.profiles;
       var rows = [];
       data.map(function (r) {
@@ -65184,9 +65197,8 @@ function (_React$Component) {
           });
         },
         onRowClick: function onRowClick(rowsData) {
-          _data_Store__WEBPACK_IMPORTED_MODULE_4__["Store"].Provider(function (value) {
-            console.log('ddd');
-          });
+          _this2.context.name = rowsData[1] + '-' + rowsData[3];
+          console.log(_this2.context);
         }
       };
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(mui_datatables__WEBPACK_IMPORTED_MODULE_1___default.a, {
@@ -65200,6 +65212,8 @@ function (_React$Component) {
 
   return ListProfile;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+_defineProperty(ListProfile, "contextType", _data_Store__WEBPACK_IMPORTED_MODULE_4__["default"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (ListProfile);
 

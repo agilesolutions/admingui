@@ -48,5 +48,26 @@ public class EndPoint {
 
 		return response.getBody();
 	}
+	
+	@ApiOperation(value = "Kick off jenkins deployment pipelines")
+	@RequestMapping(value = "/startjob/{name}", method = RequestMethod.GET)
+	public String startJob(@ApiParam(value = "Name of pipeline to start.") @PathVariable("name") String name) {
+		
+		MDC.put("transaction.id", name);
+		LOGGER.info(String.format("start job"));
+
+		RestTemplate restTemplate = new RestTemplate();
+
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.TEXT_XML);
+		
+		// https://stackoverflow.com/questions/15909650/create-jobs-and-execute-them-in-jenkins-using-rest
+		
+		HttpEntity<String> entity = new HttpEntity<String>("", headers);
+		String answer = restTemplate.postForObject("http://localhost:8080/view/pipelines/job/" + name + "/buildWithParameters?profile=" + 2, entity, String.class);
+
+		return answer;
+	}
 
 }

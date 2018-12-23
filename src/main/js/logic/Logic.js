@@ -20,7 +20,7 @@ export const deploy = () =>
 	
 	// headers.append('Authorization', 'Basic ' + base64.encode(username + ":" + password));
 	
-	fetch('http://swagger-ui:8082/view/pipelines/job/jba-prd/buildWithParameters?profile=' + 2, {
+	fetch('http://localhost:8080/view/pipelines/job/jba-prd/buildWithParameters?profile=' + 2, {
  	method: 'POST',
  	headers: headers,
  	body: formdata

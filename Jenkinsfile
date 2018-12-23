@@ -1,9 +1,13 @@
 pipeline {
     agent any
+    parameters {
+        string(name: 'service', defaultValue: 'whatelse', description: 'Spring Boot service name?')
+    }
     stages {
         stage('Package') {
             steps {
                 echo 'packaging done'
+                echo "Hello ${params.service}"
                 sleep 4
             }
         }
