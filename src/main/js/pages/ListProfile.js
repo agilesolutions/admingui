@@ -21,17 +21,23 @@ class ListProfile extends React.Component {
 	    this.fetchCars();
 	  }
 	  
+  componentDidMount() {
+	    this.fetchCars();
+	  }
+	  
 	  // Fetch all profiles
 	  fetchCars = () => {
 	    fetch('services/profiles')
 	    .then((response) => response.json()) 
-	    .then((responseData) => { 
+	    .then((responseData) => {
+	      console.log(responseData)
 	      this.setState({ 
-	        profiles: profiles,
+	        profiles: responseData,
 	      }); 
 	    })
 	    .catch(err => console.error(err));   
 	  }
+
 
   render() {
 	  
