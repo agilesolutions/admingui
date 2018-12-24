@@ -1,6 +1,9 @@
 package ch.agilesolutions.jdo.rest;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import ch.agilesolutions.jdo.domain.Profile;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
@@ -69,6 +73,32 @@ public class EndPoint {
 		String answer = restTemplate.postForObject("http://localhost:8080/view/pipelines/job/" + name + "/buildWithParameters?service=" + name, entity, String.class);
 
 		return answer;
+	}
+	
+	@ApiOperation(value = "List all profiles")
+	@RequestMapping(value = "/profiles", method = RequestMethod.GET)
+	public List<Profile> getProfiles() {
+		
+		MDC.put("transaction.id", "profiles");
+		LOGGER.info(String.format("get profiles"));
+
+		RestTemplate restTemplate = new RestTemplate();
+
+		
+		HttpHeaders headers = new HttpHeaders()	;
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		// https://stackoverflow.com/questions/15909650/create-jobs-and-execute-them-in-jenkins-using-rest
+		
+		HttpEntity<String> entity = new HttpEntity<String>("", headers);
+
+		Profile profile = new Profile("name", "host", "environment");
+		
+		List<Profile> profiles = new ArrayList<>();
+		
+		profiles.add(profile);
+
+		return profiles;
 	}
 
 }

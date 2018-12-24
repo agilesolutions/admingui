@@ -23,28 +23,14 @@ class ListProfile extends React.Component {
 	  
 	  // Fetch all profiles
 	  fetchCars = () => {
-	    fetch('api/profiles', {
-	        method: 'GET',
-	        headers: {
-	            'Content-Type': 'application/json'},
-	          body: JSON.stringify(this.state.profiles)
-	      })
-	      .then(function(response) {
-        if (!response.ok) {
-            throw Error(response.statusText);
-        }
-        return response;
-    })
-	    .then(res => {
-	    	if(res.ok) {
-	    		return res;
-	    	} else {
-	    		throw Error(`Request rejected with status ${res.status}`);
-	    	}
+	    fetch('services/profiles')
+	    .then((response) => response.json()) 
+	    .then((responseData) => { 
+	      this.setState({ 
+	        profiles: profiles,
+	      }); 
 	    })
-  .catch(function(error) {
-        console.log(error);
-    });
+	    .catch(err => console.error(err));   
 	  }
 
   render() {
