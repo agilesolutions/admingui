@@ -30,13 +30,14 @@ class ListProfile extends React.Component {
 	        'Content-Type': 'application/json'
 	        }
 	    })
-	    .then((response) => { return response.json();}) 
-	    .then((responseData) => { 
-	      this.setState({ 
-	        profiles: responseData._embedded.profiles,
-	      }); 
+	    .then(res => {
+	    	if(res.ok) {
+	    		return res;
+	    	} else {
+	    		throw Error(`Request rejected with status ${res.status}`);
+	    	}
 	    })
-	    .catch(err => console.error(err));   
+  .catch(console.error)
 	  }
 
   render() {
