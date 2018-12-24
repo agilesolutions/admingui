@@ -26,10 +26,15 @@ class ListProfile extends React.Component {
 	    fetch('api/profiles', {
 	        method: 'GET',
 	        headers: {
-	        "Accept": "application/json",
-	        'Content-Type': 'application/json'
-	        }
-	    })
+	            'Content-Type': 'application/json'},
+	          body: JSON.stringify(this.state.profiles)
+	      })
+	      .then(function(response) {
+        if (!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response;
+    })
 	    .then(res => {
 	    	if(res.ok) {
 	    		return res;
@@ -37,7 +42,9 @@ class ListProfile extends React.Component {
 	    		throw Error(`Request rejected with status ${res.status}`);
 	    	}
 	    })
-  .catch(console.error)
+  .catch(function(error) {
+        console.log(error);
+    });
 	  }
 
   render() {
