@@ -7,10 +7,13 @@ import Store from './data/Store';
 window.React = React
 
 render(
+		
+	
 
   <HashRouter>
     <div>
-		<Store.Provider value={{id: 1, name: 'test'}}>
+		<Store.Provider value={{id: 1, domain: 'domain', name: 'hame', host: 'host', environment: 'environment
+			', ticket: 'ticket'}}>
 	  			<MainPage />
     	</Store.Provider>
     </div>

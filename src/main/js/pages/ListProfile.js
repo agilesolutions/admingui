@@ -74,7 +74,12 @@ class ListProfile extends React.Component {
 	      	openDialog({message: 'Selected records deleted.'});
       	  },
 	      onRowClick: (rowsData) => {
-	      	this.context.name = rowsData[1] + '-' + rowsData[3];
+		      	this.context.id = rowsData[0];
+		      	this.context.domain = rowsData[1];
+		      	this.context.name = rowsData[2];
+		      	this.context.host = rowsData[3];
+		      	this.context.environment = rowsData[4];
+		      	this.context.ticket = rowsData[5];
 	      	console.log(this.context);
 				        
       	  }	      

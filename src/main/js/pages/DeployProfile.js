@@ -13,7 +13,7 @@ class DeployProfile extends React.Component {
   
   constructor(props) {
       super(props);
-      this.state = {domain: 'crm', name: 'crmapp', host: 'srp99999lx',  environment: 'prd', ticket: 'CRM-1'};
+      this.state = {domain: this.context.domain, name: this.context.name, host: this.context.host,  environment: this.context.environment, ticket: this.context.ticket};
   }
 
   handleChange = (event) => {
