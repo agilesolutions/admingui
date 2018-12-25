@@ -8,12 +8,15 @@ import ch.agilesolutions.jdo.domain.Profile;
 import ch.agilesolutions.jdo.domain.ProfileRepository;
 
 @RestController
-public class CarController {
+public class ServiceController {
 	@Autowired
 	private ProfileRepository repository;
 	
-	@RequestMapping("/cars")
+	@RequestMapping("/profiles")
 	public Iterable<Profile> getCars() {
 		return repository.findAll();
 	}
+	
+	
+	
 }

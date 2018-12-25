@@ -7,17 +7,21 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import ch.agilesolutions.jdo.domain.Profile;
+import ch.agilesolutions.jdo.domain.ProfileRepository;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
@@ -28,6 +32,9 @@ public class EndPoint {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EndPoint.class);
 
+	@Autowired
+	private ProfileRepository repository;
+	
 
 	@ApiOperation(value = "Create Jenkins Job")
 	@RequestMapping(value = "/newjob/{name}", method = RequestMethod.GET)
@@ -77,7 +84,7 @@ public class EndPoint {
 	
 	@ApiOperation(value = "List all profiles")
 	@RequestMapping(value = "/profiles", method = RequestMethod.GET)
-	public List<Profile> getProfiles() {
+	public Iterable<Profile> getProfiles() {
 		
 		MDC.put("transaction.id", "profiles");
 		LOGGER.info(String.format("get profiles"));
@@ -98,7 +105,22 @@ public class EndPoint {
 		
 		profiles.add(profile);
 
-		return profiles;
+		return repository.findAll();
 	}
 
+	
+	@ApiOperation(value = "add profile")
+	@RequestMapping(value = "/addprofile", method = RequestMethod.POST)
+	public ResponseEntity < String> addProfile(@RequestBody Profile profile) {
+		
+		MDC.put("transaction.id", "profiles");
+		LOGGER.info(String.format("add profiles"));
+
+
+		repository.save(profile);
+		
+		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}
+
+	
 }

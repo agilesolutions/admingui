@@ -24,7 +24,7 @@ class AddProfile extends React.Component {
   addProfile = () => {
     var newProfile = {name: this.state.name, host: this.state.host, 
     	        environment: this.state.environment};
-    fetch('api/profiles', 
+    fetch('services/addprofile', 
     {   method: 'POST', 
         headers: {
           'Content-Type': 'application/json'},
