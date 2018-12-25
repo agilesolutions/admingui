@@ -38,11 +38,7 @@ class DeployProfile extends React.Component {
   //https://github.com/xotahal/react-native-material-ui/issues/258
   render() {
 	  
-	  this.setState({domain: this.context.domain});
-	  this.setState({name: this.context.name});
-	  this.setState({host: this.context.host});
-	  this.setState({environment: this.context.environment});
-	  this.setState({ticket: this.context.ticket});
+	  this.setState({domain: this.context.domain, name: this.context.name,host: this.context.host,environment: this.context.environment, ticket: this.context.ticket });
 	  
     return (
       <div>
