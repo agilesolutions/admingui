@@ -13,7 +13,7 @@ class DeployProfile extends React.Component {
   
   constructor(props) {
       super(props);
-      this.state = {domain: this.context.domain, name: this.context.name, host: this.context.host,  environment: this.context.environment, ticket: this.context.ticket};
+      this.state = {domain: '', name: '', host: '',  environment: '', ticket: ''};
   }
 
   handleChange = (event) => {
@@ -37,16 +37,23 @@ class DeployProfile extends React.Component {
   }
   //https://github.com/xotahal/react-native-material-ui/issues/258
   render() {
+	  
+	  this.setState({domain: this.context.domain});
+	  this.setState({name: this.context.name});
+	  this.setState({host: this.context.host});
+	  this.setState({environment: this.context.environment});
+	  this.setState({ticket: this.context.ticket});
+	  
     return (
       <div>
 
           <h3>Deploy Service</h3>
           <form>
-          <TextField label="Domain" placeholder="domain"  name="domain" onChange={this.handleChange}/><br/>
-          <TextField label="Name" placeholder="Name"  name="name" onChange={this.handleChange}/><br/>
-            <TextField label="Host" placeholder="Host" name="host" onChange={this.handleChange}/><br/>
-            <TextField label="Environment" placeholder="Environment" name="environment" onChange={this.handleChange}/><br/>
-            <TextField label="Ticket" placeholder="ticket" name="ticket" onChange={this.handleChange}/><br/>
+          <TextField label="Domain" placeholder="domain"  name="domain" value={this.state.domain} onChange={this.handleChange}/><br/>
+          <TextField label="Name" placeholder="Name"  name="name" value={this.state.name} onChange={this.handleChange}/><br/>
+            <TextField label="Host" placeholder="Host" name="host" value={this.state.host} onChange={this.handleChange}/><br/>
+            <TextField label="Environment" placeholder="Environment" name="environment" value={this.state.environment} onChange={this.handleChange}/><br/>
+            <TextField label="Ticket" placeholder="ticket" name="ticket" value={this.state.ticket} onChange={this.handleChange}/><br/>
           </form>     
 
         <div>
