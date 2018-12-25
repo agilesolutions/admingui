@@ -15,6 +15,7 @@ import MenuAppBar from '../bars/MenuAppBar';
 import MessageDialog from '../dialogs/MessageDialog';
 import ListProfile from '../pages/ListProfile';
 import AddProfile from '../pages/AddProfile';
+import DeployProfile from '../pages/DeployProfile';
 import { Switch, Route } from 'react-router-dom'
 
 
@@ -75,6 +76,7 @@ const PageTemplate = (props) => {
    	        	<Route exact path="/" component={ListProfile} />
    	        	<Route path='/ListProfile' component={ListProfile} />
    	        	<Route path='/AddProfile' component={AddProfile} />
+   	        	<Route path='/DeployProfile' component={DeployProfile} />
    	        </Switch>
       		</main>
       	</GridListTile>

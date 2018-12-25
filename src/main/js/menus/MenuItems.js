@@ -40,7 +40,7 @@ export const SubMenuItems = (
 	<Store.Consumer>
 	{(name) = () => (
 	<div>
-    <ListItem button onClick={deploy}>
+    <ListItem button  component={Link} to="/DeployProfile">
       <ListItemIcon>
         <Schedule />
       </ListItemIcon>

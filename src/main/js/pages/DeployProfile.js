@@ -6,13 +6,14 @@ import MessageDialog, { openDialog } from '../dialogs/MessageDialog';
 import {newJob} from   '../logic/Logic'
 import Store from '../data/Store';
 
-class AddProfile extends React.Component {
+class DeployProfile extends React.Component {
 
   static contextType = Store;
   
+  
   constructor(props) {
       super(props);
-      this.state = {domain: '', name: '', host: '',  environment: '', ticket: ''};
+      this.state = {domain: 'crm', name: 'crmapp', host: 'srp99999lx',  environment: 'prd', ticket: 'CRM-1'};
   }
 
   handleChange = (event) => {
@@ -24,17 +25,9 @@ class AddProfile extends React.Component {
   addProfile = () => {
     var newProfile = {domain: this.state.domain, name: this.state.name, host: this.state.host, 
     	        environment: this.state.environment, ticket: this.state.ticket};
-    fetch('services/addprofile', 
-    {   method: 'POST', 
-        headers: {
-          'Content-Type': 'application/json'},
-        body: JSON.stringify(newProfile)
-    })
-    .then(() => {openDialog({ message: 'New Jenkins Job created.' });
-    			newJob(newProfile.name + '-' + newProfile.environment);})
-    .catch(err => console.error(err));
+    fetch('services/startjob/' + this.state.name + '-' + this.state.environment)
+	.catch(err => console.error(err));
   }
-  
   
   cancelSubmit = (event) => {
     event.preventDefault();    
@@ -45,7 +38,7 @@ class AddProfile extends React.Component {
     return (
       <div>
 
-          <h3>New profile</h3>
+          <h3>Deploy Service</h3>
           <form>
           <TextField label="Domain" placeholder="domain"  name="domain" onChange={this.handleChange}/><br/>
           <TextField label="Name" placeholder="Name"  name="name" onChange={this.handleChange}/><br/>
@@ -55,7 +48,7 @@ class AddProfile extends React.Component {
           </form>     
 
         <div>
-            <Button variant="raised" color="primary" style={{'margin': '10px'}} onClick={this.addProfile}>Save Profile</Button>
+            <Button variant="raised" color="primary" style={{'margin': '10px'}} onClick={this.addProfile}>Deploy service</Button>
         </div>
         <div>
         	<MessageDialog/>
@@ -65,4 +58,4 @@ class AddProfile extends React.Component {
   }
 }
 
-export default AddProfile;
+export default DeployProfile;
