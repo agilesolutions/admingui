@@ -24,18 +24,18 @@ public class JdoApplication {
 		return args -> {
 			
 			
-			profileRepository.save(new Profile("crm", "srp99999lx", "prd"));
-			profileRepository.save(new Profile("crm", "srp74943lx", "uat"));
-			profileRepository.save(new Profile("crm", "srp10577lx", "sit"));
-			profileRepository.save(new Profile("crm", "srp34766lx", "dev"));
-			profileRepository.save(new Profile("ear", "srp76591lx", "prd"));
-			profileRepository.save(new Profile("ear", "srp73684lx", "uat"));
-			profileRepository.save(new Profile("ear", "srp15437lx", "sit"));
-			profileRepository.save(new Profile("ear", "srp17464lx", "dev"));
-			profileRepository.save(new Profile("jbt", "srp75635lx", "prd"));
-			profileRepository.save(new Profile("jbt", "srp72673lx", "uat"));
-			profileRepository.save(new Profile("jbt", "srp74673lx", "sit"));
-			profileRepository.save(new Profile("jbt", "srp17633lx", "dev"));
+			profileRepository.save(new Profile("crm", "crmapp", "srp99999lx", "prd", "CRM-1"));
+			profileRepository.save(new Profile("crm", "crmapp", "srp74943lx", "uat", "CRM-1"));
+			profileRepository.save(new Profile("crm", "crmapp", "srp10577lx", "sit", "CRM-1"));
+			profileRepository.save(new Profile("crm", "crmapp", "srp34766lx", "dev", "CRM-1"));
+			profileRepository.save(new Profile("ear", "earapp", "srp76591lx", "prd", "EAR-1"));
+			profileRepository.save(new Profile("ear", "earapp", "srp73684lx", "uat", "EAR-1"));
+			profileRepository.save(new Profile("ear", "earapp", "srp15437lx", "sit", "EAR-1"));
+			profileRepository.save(new Profile("ear", "earapp", "srp17464lx", "dev", "EAR-1"));
+			profileRepository.save(new Profile("jbt", "jbtapp", "srp75635lx", "prd", "JBT-1"));
+			profileRepository.save(new Profile("jbt", "jbtapp", "srp72673lx", "uat", "JBT-1"));
+			profileRepository.save(new Profile("jbt", "jbtapp", "srp74673lx", "sit", "JBT-1"));
+			profileRepository.save(new Profile("jbt", "jbtapp", "srp17633lx", "dev", "JBT-1"));
 			
 		};
 	}	

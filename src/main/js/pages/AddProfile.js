@@ -22,8 +22,8 @@ class AddProfile extends React.Component {
   }    
 
   addProfile = () => {
-    var newProfile = {name: this.state.name, host: this.state.host, 
-    	        environment: this.state.environment};
+    var newProfile = {domain: this.state.domain, name: this.state.name, host: this.state.host, 
+    	        environment: this.state.environment, ticket: this.state.ticket};
     fetch('services/addprofile', 
     {   method: 'POST', 
         headers: {
@@ -47,9 +47,11 @@ class AddProfile extends React.Component {
 
           <h3>New profile</h3>
           <form>
-            <TextField label="Name" placeholder="Name"  name="name" onChange={this.handleChange}/><br/>
+          <TextField label="Domain" placeholder="domain"  name="domain" onChange={this.handleChange}/><br/>
+          <TextField label="Name" placeholder="Name"  name="name" onChange={this.handleChange}/><br/>
             <TextField label="Host" placeholder="Host" name="host" onChange={this.handleChange}/><br/>
             <TextField label="Environment" placeholder="Environment" name="environment" onChange={this.handleChange}/><br/>
+            <TextField label="Ticket" placeholder="ticket" name="ticket" onChange={this.handleChange}/><br/>
           </form>     
 
         <div>

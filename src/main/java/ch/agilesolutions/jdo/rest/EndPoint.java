@@ -99,11 +99,11 @@ public class EndPoint {
 		
 		HttpEntity<String> entity = new HttpEntity<String>("", headers);
 
-		Profile profile = new Profile("name", "host", "environment");
+//		Profile profile = new Profile("name", "host", "environment", );
 		
 		List<Profile> profiles = new ArrayList<>();
 		
-		profiles.add(profile);
+//		profiles.add(profile);
 
 		return repository.findAll();
 	}

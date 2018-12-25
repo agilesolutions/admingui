@@ -12,15 +12,17 @@ public class Profile {
 	private long id;
 
 	
-	private String name, host, environment;
+	private String domain, name, host, environment, ticket;
 	
 	public Profile() {}
 
-	public Profile(String name, String host, String environment) {
+	public Profile(String domain, String name, String host, String environment, String ticket) {
 		super();
+		this.domain = domain;
 		this.name = name;
 		this.host = host;
 		this.environment = environment;
+		this.ticket = ticket;
 	}
 	
 	
@@ -55,4 +57,21 @@ public class Profile {
 	public void setId(long id) {
 		this.id = id;
 	}
+
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
+
+	public String getTicket() {
+		return ticket;
+	}
+
+	public void setTicket(String ticket) {
+		this.ticket = ticket;
+	}
+	
 }

@@ -47,14 +47,16 @@ class ListProfile extends React.Component {
 	  data.map(r => {
 		  var row = [];
 		  row.push(r.id);
+		  row.push(r.domain);
 		  row.push(r.name);
 		  row.push(r.host);
 		  row.push(r.environment);
+		  row.push(r.ticket);
 		  
 		  rows.push(row);});
 	  
 	  	
-	    const columns = ["id", "name", "host", "environment"];
+	    const columns = ["id", "domain", "name", "host", "environment", "ticket"];
 
 	    const options = {
 	      filter: true,
