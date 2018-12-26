@@ -31,7 +31,7 @@ class AddProfile extends React.Component {
         body: JSON.stringify(newProfile)
     })
     .then(() => {openDialog({ message: 'New Jenkins Job created.' });
-    			newJob(newProfile.name + '-' + newProfile.environment);})
+    			newJob(newProfile.domain + '-' + newProfile.name + '-' + newProfile.environment);})
     .catch(err => console.error(err));
   }
   
