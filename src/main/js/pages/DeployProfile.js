@@ -38,18 +38,18 @@ class DeployProfile extends React.Component {
   //https://github.com/xotahal/react-native-material-ui/issues/258
   render() {
 	  
-	  this.setState({domain: this.context.domain, name: this.context.name,host: this.context.host,environment: this.context.environment, ticket: this.context.ticket });
+	  //this.setState({domain: this.context.domain, name: this.context.name,host: this.context.host,environment: this.context.environment, ticket: this.context.ticket });
 	  
     return (
       <div>
 
           <h3>Deploy Service</h3>
           <form>
-          <TextField label="Domain" placeholder="domain"  name="domain" value={this.state.domain} onChange={this.handleChange}/><br/>
-          <TextField label="Name" placeholder="Name"  name="name" value={this.state.name} onChange={this.handleChange}/><br/>
-            <TextField label="Host" placeholder="Host" name="host" value={this.state.host} onChange={this.handleChange}/><br/>
-            <TextField label="Environment" placeholder="Environment" name="environment" value={this.state.environment} onChange={this.handleChange}/><br/>
-            <TextField label="Ticket" placeholder="ticket" name="ticket" value={this.state.ticket} onChange={this.handleChange}/><br/>
+          <TextField label="Domain" placeholder="domain"  name="domain" value={this.context.domain} onChange={this.handleChange}/><br/>
+          <TextField label="Name" placeholder="Name"  name="name" value={this.context.name} onChange={this.handleChange}/><br/>
+            <TextField label="Host" placeholder="Host" name="host" value={this.context.host} onChange={this.handleChange}/><br/>
+            <TextField label="Environment" placeholder="Environment" name="environment" value={this.context.environment} onChange={this.handleChange}/><br/>
+            <TextField label="Ticket" placeholder="ticket" name="ticket" value={this.context.ticket} onChange={this.handleChange}/><br/>
           </form>     
 
         <div>

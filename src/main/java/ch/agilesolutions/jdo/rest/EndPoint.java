@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,9 @@ public class EndPoint {
 	@Autowired
 	private ProfileRepository repository;
 	
+	@Value("${jenkins.url}")
+	private String jenkinsUrl;
+	
 
 	@ApiOperation(value = "Create Jenkins Job")
 	@RequestMapping(value = "/newjob/{name}", method = RequestMethod.GET)
@@ -47,7 +51,7 @@ public class EndPoint {
 
 		// Thread.sleep(5000);
 //		ResponseEntity<String> response = restTemplate.getForEntity("http://swagger-ui:8082/job/deploymentpipeline/api/json", String.class);
-		ResponseEntity<String> response = restTemplate.getForEntity("http://localhost:8080/job/template/config.xml", String.class);
+		ResponseEntity<String> response = restTemplate.getForEntity(jenkinsUrl + "/job/template/config.xml", String.class);
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.TEXT_XML);
@@ -55,7 +59,7 @@ public class EndPoint {
 		// https://stackoverflow.com/questions/15909650/create-jobs-and-execute-them-in-jenkins-using-rest
 		
 		HttpEntity<String> entity = new HttpEntity<String>(response.getBody(), headers);
-		String answer = restTemplate.postForObject("http://localhost:8080/view/pipelines/createItem?name=" + name, entity, String.class);
+		String answer = restTemplate.postForObject(jenkinsUrl + "/view/pipelines/createItem?name=" + name, entity, String.class);
 
 		return response.getBody();
 	}
@@ -77,7 +81,7 @@ public class EndPoint {
 		
 		HttpEntity<String> entity = new HttpEntity<String>("", headers);
 
-		String answer = restTemplate.postForObject("http://localhost:8080/view/pipelines/job/" + name + "/buildWithParameters?service=" + name, entity, String.class);
+		String answer = restTemplate.postForObject(jenkinsUrl + "/view/pipelines/job/" + name + "/buildWithParameters?service=" + name, entity, String.class);
 
 		return answer;
 	}
