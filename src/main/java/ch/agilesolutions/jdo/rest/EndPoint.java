@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import ch.agilesolutions.jdo.domain.Profile;
@@ -59,12 +60,12 @@ public class EndPoint {
 		HttpEntity<String> entity = new HttpEntity<String>(response.getBody(), headers);
 		
 		// create folder
-		String answer = restTemplate.postForObject(jenkinsUrl + "/createItem?name=FolderName&mode=com.cloudbees.hudson.plugins.folder.Folder&from=&json=%7B%22name%22%3A%22FolderName%22%2C%22mode%22%3A%22com.cloudbees.hudson.plugins.folder.Folder%22%2C%22from%22%3A%22%22%2C%22Submit%22%3A%22OK%22%7D&Submit=OK", entity, String.class);
+		// String answer = restTemplate.postForObject(jenkinsUrl + "/createItem?name=FolderName&mode=com.cloudbees.hudson.plugins.folder.Folder&from=&json=%7B%22name%22%3A%22FolderName%22%2C%22mode%22%3A%22com.cloudbees.hudson.plugins.folder.Folder%22%2C%22from%22%3A%22%22%2C%22Submit%22%3A%22OK%22%7D&Submit=OK", entity, String.class);
 
 		
 		// https://stackoverflow.com/questions/15909650/create-jobs-and-execute-them-in-jenkins-using-rest
 		
-		answer = restTemplate.postForObject(jenkinsUrl + "/view/pipelines/createItem?name=" + name, entity, String.class);
+		String answer = restTemplate.postForObject(jenkinsUrl + "/view/pipelines/createItem?name=" + name, entity, String.class);
 
 		return response.getBody();
 	}
@@ -81,12 +82,25 @@ public class EndPoint {
 		
 		HttpHeaders headers = new HttpHeaders()	;
 		headers.setContentType(MediaType.TEXT_XML);
+		// get template
+		ResponseEntity<String> response = restTemplate.getForEntity(jenkinsUrl + "/job/template/config.xml", String.class);
+
+		HttpEntity<String> entity = new HttpEntity<String>(response.getBody(), headers);
+		// create new job from template
+		String answer;
+		try {
+			answer = restTemplate.postForObject(jenkinsUrl + "/view/pipelines/createItem?name=" + name, entity, String.class);
+		} catch (RestClientException e) {
+			// TODO Auto-generated catch block
+			LOGGER.info(String.format("job already exists"));
+		}
+		
 		
 		// https://stackoverflow.com/questions/15909650/create-jobs-and-execute-them-in-jenkins-using-rest
 		
-		HttpEntity<String> entity = new HttpEntity<String>("", headers);
-
-		String answer = restTemplate.postForObject(jenkinsUrl + "/view/pipelines/job/" + name + "/buildWithParameters?service=" + name, entity, String.class);
+		//HttpEntity<String> entity = new HttpEntity<String>("", headers);
+		// start job with parameters
+		answer = restTemplate.postForObject(jenkinsUrl + "/view/pipelines/job/" + name + "/buildWithParameters?service=" + name, entity, String.class);
 
 		return answer;
 	}
