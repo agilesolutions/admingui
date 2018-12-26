@@ -55,11 +55,16 @@ public class EndPoint {
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.TEXT_XML);
+
+		HttpEntity<String> entity = new HttpEntity<String>(response.getBody(), headers);
+		
+		// create folder
+		String answer = restTemplate.postForObject(jenkinsUrl + "/createItem?name=FolderName&mode=com.cloudbees.hudson.plugins.folder.Folder&from=&json=%7B%22name%22%3A%22FolderName%22%2C%22mode%22%3A%22com.cloudbees.hudson.plugins.folder.Folder%22%2C%22from%22%3A%22%22%2C%22Submit%22%3A%22OK%22%7D&Submit=OK", entity, String.class);
+
 		
 		// https://stackoverflow.com/questions/15909650/create-jobs-and-execute-them-in-jenkins-using-rest
 		
-		HttpEntity<String> entity = new HttpEntity<String>(response.getBody(), headers);
-		String answer = restTemplate.postForObject(jenkinsUrl + "/view/pipelines/createItem?name=" + name, entity, String.class);
+		answer = restTemplate.postForObject(jenkinsUrl + "/view/pipelines/createItem?name=" + name, entity, String.class);
 
 		return response.getBody();
 	}
