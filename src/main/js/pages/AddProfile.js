@@ -30,9 +30,19 @@ class AddProfile extends React.Component {
           'Content-Type': 'application/json'},
         body: JSON.stringify(newProfile)
     })
-    .then(() => {openDialog({ message: 'New Jenkins Job created.' });
-    			newJob(newProfile.domain + '-' + newProfile.name + '-' + newProfile.environment);})
     .catch(err => console.error(err));
+    var submitProfile = {id: 1, domain: this.state.domain, name: this.state.name, host: this.state.host, 
+	        environment: this.state.environment, ticket: this.state.ticket};
+    
+    fetch('services/createjob',
+    	    {   method: 'POST', 
+        headers: {
+          'Content-Type': 'application/json'},
+          body: JSON.stringify(newProfile)
+    })
+    .then(() => {openDialog({ message: 'New Jenkins Job created.' });
+	})
+	.catch(err => console.error(err));
   }
   
   

@@ -69885,11 +69885,27 @@ function (_React$Component) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(newProfile)
+      }).catch(function (err) {
+        return console.error(err);
+      });
+      var submitProfile = {
+        id: 1,
+        domain: _this.state.domain,
+        name: _this.state.name,
+        host: _this.state.host,
+        environment: _this.state.environment,
+        ticket: _this.state.ticket
+      };
+      fetch('services/createjob', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newProfile)
       }).then(function () {
         Object(_dialogs_MessageDialog__WEBPACK_IMPORTED_MODULE_4__["openDialog"])({
           message: 'New Jenkins Job created.'
         });
-        Object(_logic_Logic__WEBPACK_IMPORTED_MODULE_5__["newJob"])(newProfile.name + '-' + newProfile.environment);
       }).catch(function (err) {
         return console.error(err);
       });
@@ -70026,13 +70042,20 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "addProfile", function () {
       var newProfile = {
-        domain: _this.state.domain,
-        name: _this.state.name,
-        host: _this.state.host,
-        environment: _this.state.environment,
-        ticket: _this.state.ticket
+        id: _this.context.id,
+        domain: _this.context.domain,
+        name: _this.context.name,
+        host: _this.context.host,
+        environment: _this.context.environment,
+        ticket: _this.context.ticket
       };
-      fetch('services/startjob/' + _this.state.name + '-' + _this.state.environment).then(function () {
+      fetch('services/startjob', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newProfile)
+      }).then(function () {
         Object(_dialogs_MessageDialog__WEBPACK_IMPORTED_MODULE_4__["openDialog"])({
           message: 'Deployment pipeline started.'
         });

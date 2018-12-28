@@ -42,10 +42,10 @@ public class EndPoint {
 	
 
 	@ApiOperation(value = "Create Jenkins Job")
-	@RequestMapping(value = "/newjob/{name}", method = RequestMethod.GET)
-	public String createJob(@ApiParam(value = "Name of new Jenkins Pipeline Job.") @PathVariable("name") String name) {
+	@RequestMapping(value = "/createjob", method = RequestMethod.POST)
+	public String createPipeline(@ApiParam(value = "Spring boot service.") @RequestBody Profile profile) {
 		
-		MDC.put("transaction.id", name);
+		MDC.put("transaction.id", profile.getName());
 		LOGGER.info(String.format("new job create"));
 
 		RestTemplate restTemplate = new RestTemplate();
@@ -65,16 +65,16 @@ public class EndPoint {
 		
 		// https://stackoverflow.com/questions/15909650/create-jobs-and-execute-them-in-jenkins-using-rest
 		
-		String answer = restTemplate.postForObject(jenkinsUrl + "/view/pipelines/createItem?name=" + name, entity, String.class);
+		String answer = restTemplate.postForObject(jenkinsUrl + "/view/pipelines/createItem?name=" + String.format("%s-%s", profile.getName(),profile.getEnvironment()) , entity, String.class);
 
 		return response.getBody();
 	}
 	
 	@ApiOperation(value = "Kick off jenkins deployment pipelines")
-	@RequestMapping(value = "/startjob/{name}", method = RequestMethod.GET)
-	public String startJob(@ApiParam(value = "Name of pipeline to start.") @PathVariable("name") String name) {
+	@RequestMapping(value = "/startjob", method = RequestMethod.POST)
+	public String startPipeline(@ApiParam(value = "Spring boot service.") @RequestBody Profile profile) {
 		
-		MDC.put("transaction.id", name);
+		MDC.put("transaction.id", profile.getName());
 		LOGGER.info(String.format("start job"));
 
 		RestTemplate restTemplate = new RestTemplate();
@@ -89,7 +89,7 @@ public class EndPoint {
 		// create new job from template
 		String answer;
 		try {
-			answer = restTemplate.postForObject(jenkinsUrl + "/view/pipelines/createItem?name=" + name, entity, String.class);
+			answer = restTemplate.postForObject(jenkinsUrl + "/view/pipelines/createItem?name=" + profile.getName(), entity, String.class);
 		} catch (RestClientException e) {
 			// TODO Auto-generated catch block
 			LOGGER.info(String.format("job already exists"));
@@ -100,7 +100,7 @@ public class EndPoint {
 		
 		//HttpEntity<String> entity = new HttpEntity<String>("", headers);
 		// start job with parameters
-		answer = restTemplate.postForObject(jenkinsUrl + "/view/pipelines/job/" + name + "/buildWithParameters?service=" + name, entity, String.class);
+		answer = restTemplate.postForObject(jenkinsUrl + "/view/pipelines/job/" + String.format("%s-%s", profile.getName(),profile.getEnvironment()) + "/buildWithParameters?service=" + profile.getId(), entity, String.class);
 
 		return answer;
 	}

@@ -23,9 +23,14 @@ class DeployProfile extends React.Component {
   }    
 
   addProfile = () => {
-    var newProfile = {domain: this.state.domain, name: this.state.name, host: this.state.host, 
-    	        environment: this.state.environment, ticket: this.state.ticket};
-    fetch('services/startjob/' + this.context.domain + '-' + this.context.name + '-' + this.context.environment)
+    var newProfile = {id: this.context.id, domain: this.context.domain, name: this.context.name, host: this.context.host, 
+    	        environment: this.context.environment, ticket: this.context.ticket};
+    fetch('services/startjob',
+    	    {   method: 'POST', 
+        headers: {
+          'Content-Type': 'application/json'},
+          body: JSON.stringify(newProfile)
+    })
        .then(() => {openDialog({ message: 'Deployment pipeline started.' });
     			})
 	.catch(err => console.error(err));
