@@ -51,9 +51,17 @@ public class EndPoint {
 		// ResponseEntity<String> response =
 		// restTemplate.getForEntity("http://swagger-ui:8082/job/deploymentpipeline/api/json",
 		// String.class);
-		ResponseEntity<String> response = restTemplate
-				.getForEntity(jenkinsUrl + "/job/" + profile.getTemplate() + "/config.xml", String.class);
-
+		ResponseEntity<String> response = null;
+		try {
+			response = restTemplate
+					.getForEntity(jenkinsUrl + "/job/" + profile.getTemplate() + "/config.xml", String.class);
+		} catch (RestClientException e1) {
+			// TODO Auto-generated catch block
+			LOGGER.info(String.format("job template not found"));
+		}
+		
+		
+		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.TEXT_XML);
 
@@ -66,8 +74,13 @@ public class EndPoint {
 
 		// https://stackoverflow.com/questions/15909650/create-jobs-and-execute-them-in-jenkins-using-rest
 
-		String answer = restTemplate.postForObject(jenkinsUrl + "/view/pipelines/createItem?name="
-				+ String.format("%s-%s", profile.getName(), profile.getEnvironment()), entity, String.class);
+		try {
+			String answer = restTemplate.postForObject(jenkinsUrl + "/view/pipelines/createItem?name="
+					+ String.format("%s-%s", profile.getName(), profile.getEnvironment()), entity, String.class);
+		} catch (RestClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return response.getBody();
 	}
@@ -84,12 +97,18 @@ public class EndPoint {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.TEXT_XML);
 		// get template
-		ResponseEntity<String> response = restTemplate.getForEntity(jenkinsUrl + "/job/template/config.xml",
-				String.class);
+		ResponseEntity<String> response = null;
+		try {
+			response = restTemplate
+					.getForEntity(jenkinsUrl + "/job/" + profile.getTemplate() + "/config.xml", String.class);
+		} catch (RestClientException e1) {
+			// TODO Auto-generated catch block
+			LOGGER.info(String.format("job template not found"));
+		}
 
 		HttpEntity<String> entity = new HttpEntity<String>(response.getBody(), headers);
 		// create new job from template
-		String answer;
+		String answer =null;
 		try {
 			answer = restTemplate.postForObject(jenkinsUrl + "/view/pipelines/createItem?name=" + profile.getName(),
 					entity, String.class);
@@ -102,9 +121,14 @@ public class EndPoint {
 
 		// HttpEntity<String> entity = new HttpEntity<String>("", headers);
 		// start job with parameters
-		answer = restTemplate.postForObject(jenkinsUrl + "/view/pipelines/job/"
-				+ String.format("%s-%s", profile.getName(), profile.getEnvironment()) + "/buildWithParameters?service="
-				+ profile.getId(), entity, String.class);
+		try {
+			answer = restTemplate.postForObject(jenkinsUrl + "/view/pipelines/job/"
+					+ String.format("%s-%s", profile.getName(), profile.getEnvironment()) + "/buildWithParameters?service="
+					+ profile.getId(), entity, String.class);
+		} catch (RestClientException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return answer;
 	}

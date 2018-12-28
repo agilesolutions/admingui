@@ -69650,7 +69650,8 @@ Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED
     name: 'hame',
     host: 'host',
     environment: 'environment',
-    ticket: 'ticket'
+    ticket: 'ticket',
+    template: 'template'
   }
 }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_templates_MainPage__WEBPACK_IMPORTED_MODULE_2__["default"], null)))), document.getElementById('ReactContainer'));
 
@@ -69877,7 +69878,8 @@ function (_React$Component) {
         name: _this.state.name,
         host: _this.state.host,
         environment: _this.state.environment,
-        ticket: _this.state.ticket
+        ticket: _this.state.ticket,
+        template: _this.state.template
       };
       fetch('services/addprofile', {
         method: 'POST',
@@ -69894,7 +69896,8 @@ function (_React$Component) {
         name: _this.state.name,
         host: _this.state.host,
         environment: _this.state.environment,
-        ticket: _this.state.ticket
+        ticket: _this.state.ticket,
+        template: _this.state.template
       };
       fetch('services/createjob', {
         method: 'POST',
@@ -69922,7 +69925,8 @@ function (_React$Component) {
       name: '',
       host: '',
       environment: '',
-      ticket: ''
+      ticket: '',
+      template: ''
     };
     return _this;
   }
@@ -69955,6 +69959,11 @@ function (_React$Component) {
         label: "Ticket",
         placeholder: "ticket",
         name: "ticket",
+        onChange: this.handleChange
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_2___default.a, {
+        label: "Template",
+        placeholder: "template",
+        name: "template",
         onChange: this.handleChange
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_1___default.a, {
         variant: "raised",
@@ -70047,7 +70056,8 @@ function (_React$Component) {
         name: _this.context.name,
         host: _this.context.host,
         environment: _this.context.environment,
-        ticket: _this.context.ticket
+        ticket: _this.context.ticket,
+        template: _this.context.template
       };
       fetch('services/startjob', {
         method: 'POST',
@@ -70075,7 +70085,8 @@ function (_React$Component) {
       name: '',
       host: '',
       environment: '',
-      ticket: ''
+      ticket: '',
+      template: ''
     };
     return _this;
   }
@@ -70114,6 +70125,12 @@ function (_React$Component) {
         placeholder: "ticket",
         name: "ticket",
         value: this.context.ticket,
+        onChange: this.handleChange
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_2___default.a, {
+        label: "Template",
+        placeholder: "template",
+        name: "template",
+        value: this.context.template,
         onChange: this.handleChange
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_1___default.a, {
         variant: "raised",
@@ -70239,9 +70256,10 @@ function (_React$Component) {
         row.push(r.host);
         row.push(r.environment);
         row.push(r.ticket);
+        row.push(r.template);
         rows.push(row);
       });
-      var columns = ["id", "domain", "name", "host", "environment", "ticket"];
+      var columns = ["id", "domain", "name", "host", "environment", "ticket", "template"];
       var options = {
         filter: true,
         filterType: 'dropdown',
@@ -70270,6 +70288,7 @@ function (_React$Component) {
           _this2.context.host = rowsData[3];
           _this2.context.environment = rowsData[4];
           _this2.context.ticket = rowsData[5];
+          _this2.context.template = rowsData[6];
           console.log(_this2.context);
         }
       };
