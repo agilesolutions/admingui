@@ -31,7 +31,7 @@ class DeployProfile extends React.Component {
           'Content-Type': 'application/json'},
           body: JSON.stringify(newProfile)
     })
-       .then(() => {openDialog({ message: 'Deployment pipeline started.' });
+       .then(() => {openDialog({ message: 'Deployment pipeline on ' + this.context.template + ' started.' });
     			})
 	.catch(err => console.error(err));
   }
