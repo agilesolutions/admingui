@@ -12,7 +12,7 @@ class AddProfile extends React.Component {
   
   constructor(props) {
       super(props);
-      this.state = {domain: '', name: '', host: '',  environment: '', ticket: ''};
+      this.state = {domain: '', name: '', host: '',  environment: '', ticket: '', template: ''};
   }
 
   handleChange = (event) => {
@@ -23,7 +23,7 @@ class AddProfile extends React.Component {
 
   addProfile = () => {
     var newProfile = {domain: this.state.domain, name: this.state.name, host: this.state.host, 
-    	        environment: this.state.environment, ticket: this.state.ticket};
+    	        environment: this.state.environment, ticket: this.state.ticket, template: this.state.template};
     fetch('services/addprofile', 
     {   method: 'POST', 
         headers: {
@@ -32,7 +32,7 @@ class AddProfile extends React.Component {
     })
     .catch(err => console.error(err));
     var submitProfile = {id: 1, domain: this.state.domain, name: this.state.name, host: this.state.host, 
-	        environment: this.state.environment, ticket: this.state.ticket};
+	        environment: this.state.environment, ticket: this.state.ticket, template: this.state.template};
     
     fetch('services/createjob',
     	    {   method: 'POST', 
@@ -62,6 +62,7 @@ class AddProfile extends React.Component {
             <TextField label="Host" placeholder="Host" name="host" onChange={this.handleChange}/><br/>
             <TextField label="Environment" placeholder="Environment" name="environment" onChange={this.handleChange}/><br/>
             <TextField label="Ticket" placeholder="ticket" name="ticket" onChange={this.handleChange}/><br/>
+            <TextField label="Template" placeholder="template" name="template" onChange={this.handleChange}/><br/>
           </form>     
 
         <div>

@@ -12,17 +12,18 @@ public class Profile {
 	private long id;
 
 	
-	private String domain, name, host, environment, ticket;
+	private String domain, name, host, environment, ticket, template;
 	
 	public Profile() {}
 
-	public Profile(String domain, String name, String host, String environment, String ticket) {
+	public Profile(String domain, String name, String host, String environment, String ticket, String template) {
 		super();
 		this.domain = domain;
 		this.name = name;
 		this.host = host;
 		this.environment = environment;
 		this.ticket = ticket;
+		this.template = template;
 	}
 	
 	
@@ -72,6 +73,14 @@ public class Profile {
 
 	public void setTicket(String ticket) {
 		this.ticket = ticket;
+	}
+
+	public String getTemplate() {
+		return template;
+	}
+
+	public void setTemplate(String template) {
+		this.template = template;
 	}
 	
 }

@@ -13,7 +13,7 @@ class DeployProfile extends React.Component {
   
   constructor(props) {
       super(props);
-      this.state = {domain: '', name: '', host: '',  environment: '', ticket: ''};
+      this.state = {domain: '', name: '', host: '',  environment: '', ticket: '', template: ''};
   }
 
   handleChange = (event) => {
@@ -24,7 +24,7 @@ class DeployProfile extends React.Component {
 
   addProfile = () => {
     var newProfile = {id: this.context.id, domain: this.context.domain, name: this.context.name, host: this.context.host, 
-    	        environment: this.context.environment, ticket: this.context.ticket};
+    	        environment: this.context.environment, ticket: this.context.ticket, template: this.context.template};
     fetch('services/startjob',
     	    {   method: 'POST', 
         headers: {
@@ -55,6 +55,7 @@ class DeployProfile extends React.Component {
             <TextField label="Host" placeholder="Host" name="host" value={this.context.host} onChange={this.handleChange}/><br/>
             <TextField label="Environment" placeholder="Environment" name="environment" value={this.context.environment} onChange={this.handleChange}/><br/>
             <TextField label="Ticket" placeholder="ticket" name="ticket" value={this.context.ticket} onChange={this.handleChange}/><br/>
+            <TextField label="Template" placeholder="template" name="template" value={this.context.template} onChange={this.handleChange}/><br/>
           </form>     
 
         <div>

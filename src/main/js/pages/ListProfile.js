@@ -52,11 +52,12 @@ class ListProfile extends React.Component {
 		  row.push(r.host);
 		  row.push(r.environment);
 		  row.push(r.ticket);
+		  row.push(r.template);
 		  
 		  rows.push(row);});
 	  
 	  	
-	    const columns = ["id", "domain", "name", "host", "environment", "ticket"];
+	    const columns = ["id", "domain", "name", "host", "environment", "ticket", "template"];
 
 	    const options = {
 	      filter: true,
@@ -80,6 +81,7 @@ class ListProfile extends React.Component {
 		      	this.context.host = rowsData[3];
 		      	this.context.environment = rowsData[4];
 		      	this.context.ticket = rowsData[5];
+		      	this.context.template = rowsData[6];
 	      	console.log(this.context);
 				        
       	  }	      
