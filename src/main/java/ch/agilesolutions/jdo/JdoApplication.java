@@ -24,18 +24,18 @@ public class JdoApplication {
 		return args -> {
 			
 			
-			profileRepository.save(new Profile("crm", "crmapp", "srp99999lx", "prd", "CRM-1", "template"));
-			profileRepository.save(new Profile("crm", "crmapp", "srp74943lx", "uat", "CRM-1", "template"));
-			profileRepository.save(new Profile("crm", "crmapp", "srp10577lx", "sit", "CRM-1", "template"));
-			profileRepository.save(new Profile("crm", "crmapp", "srp34766lx", "dev", "CRM-1", "template"));
-			profileRepository.save(new Profile("ear", "earapp", "srp76591lx", "prd", "EAR-1", "template"));
-			profileRepository.save(new Profile("ear", "earapp", "srp73684lx", "uat", "EAR-1", "template"));
-			profileRepository.save(new Profile("ear", "earapp", "srp15437lx", "sit", "EAR-1", "template"));
-			profileRepository.save(new Profile("ear", "earapp", "srp17464lx", "dev", "EAR-1", "template"));
-			profileRepository.save(new Profile("jbt", "jbtapp", "srp75635lx", "prd", "JBT-1", "template"));
-			profileRepository.save(new Profile("jbt", "jbtapp", "srp72673lx", "uat", "JBT-1", "template"));
-			profileRepository.save(new Profile("jbt", "jbtapp", "srp74673lx", "sit", "JBT-1", "template"));
-			profileRepository.save(new Profile("jbt", "jbtapp", "srp17633lx", "dev", "JBT-1", "template"));
+			profileRepository.save(new Profile("crm", "crmapp", "srp99999lx", "prd", "CRM-1", "linux"));
+			profileRepository.save(new Profile("crm", "crmapp", "srp74943lx", "uat", "CRM-1", "openshift"));
+			profileRepository.save(new Profile("crm", "crmapp", "srp10577lx", "sit", "CRM-1", "kubernetes"));
+			profileRepository.save(new Profile("crm", "crmapp", "srp34766lx", "dev", "CRM-1", "linux"));
+			profileRepository.save(new Profile("ear", "earapp", "srp76591lx", "prd", "EAR-1", "windows"));
+			profileRepository.save(new Profile("ear", "earapp", "srp73684lx", "uat", "EAR-1", "openshift"));
+			profileRepository.save(new Profile("ear", "earapp", "srp15437lx", "sit", "EAR-1", "templlinuxate"));
+			profileRepository.save(new Profile("ear", "earapp", "srp17464lx", "dev", "EAR-1", "windows"));
+			profileRepository.save(new Profile("jbt", "jbtapp", "srp75635lx", "prd", "JBT-1", "openshift"));
+			profileRepository.save(new Profile("jbt", "jbtapp", "srp72673lx", "uat", "JBT-1", "linux"));
+			profileRepository.save(new Profile("jbt", "jbtapp", "srp74673lx", "sit", "JBT-1", "kubernetes"));
+			profileRepository.save(new Profile("jbt", "jbtapp", "srp17633lx", "dev", "JBT-1", "windows"));
 			
 		};
 	}	
