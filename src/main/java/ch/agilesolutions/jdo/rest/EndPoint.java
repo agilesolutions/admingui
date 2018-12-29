@@ -56,7 +56,7 @@ public class EndPoint {
 		try {
 			// https://stackoverflow.com/questions/50408059/create-folder-in-jenkins-ui-using-curl
 			// https://gist.githubusercontent.com/marshyski/abaa1ccbcee5b15db92c/raw/9b633cad941959a27d4da89b892009b53cb2f9c6/jenkins-api-examples
-			String th = String.format("%s/createItem?name=%s&mode=com.cloudbees.hudson.plugins.folder.Folder&from=&json={\"name\":\"%s\",\"mode\":\"com.cloudbees.hudson.plugins.folder.Folder\",\"from\":\"\",\"Submit\":\"OK\"}&Submit=OK",jenkinsUrl, profile.getDomain(),profile.getDomain());
+			String th = String.format("%s/createItem?name=%s&mode=com.cloudbees.hudson.plugins.folder.Folder&from=&json={'name':'%s','mode':'com.cloudbees.hudson.plugins.folder.Folder','from':'','Submit':'OK'}",jenkinsUrl, profile.getDomain(),profile.getDomain());
 			answer = restTemplate.postForObject(th, entity,
 					String.class);
 			
@@ -112,7 +112,7 @@ public class EndPoint {
 		try {
 			// https://stackoverflow.com/questions/50408059/create-folder-in-jenkins-ui-using-curl
 			// https://gist.githubusercontent.com/marshyski/abaa1ccbcee5b15db92c/raw/9b633cad941959a27d4da89b892009b53cb2f9c6/jenkins-api-examples
-			String th = String.format("%s/createItem?name=%s&mode=com.cloudbees.hudson.plugins.folder.Folder&from=&json={\"name\":\"%s\",\"mode\":\"com.cloudbees.hudson.plugins.folder.Folder\",\"from\":\"\",\"Submit\":\"OK\"}&Submit=OK",jenkinsUrl, profile.getDomain(),profile.getDomain());
+			String th = String.format("%s/createItem?name=%s&mode=com.cloudbees.hudson.plugins.folder.Folder&from=&json={'name':'%s','mode':'com.cloudbees.hudson.plugins.folder.Folder','from':'','Submit':'OK'}",jenkinsUrl, profile.getDomain(),profile.getDomain());
 			answer = restTemplate.postForObject(th, entity,
 					String.class);
 			
