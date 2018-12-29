@@ -105,14 +105,17 @@ public class EndPoint {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
-		HttpEntity<String> entity = new HttpEntity<String>("", headers);
+		String json = "{'name':'%s','mode':'com.cloudbees.hudson.plugins.folder.Folder','from':'','Submit':'OK'}";
+		HttpEntity<String> entity = new HttpEntity<String>(json, headers);
 
 		// create folder
 		String answer = null;
 		try {
 			// https://stackoverflow.com/questions/50408059/create-folder-in-jenkins-ui-using-curl
 			// https://gist.githubusercontent.com/marshyski/abaa1ccbcee5b15db92c/raw/9b633cad941959a27d4da89b892009b53cb2f9c6/jenkins-api-examples
-			String th = String.format("%s/createItem?name=%s&mode=com.cloudbees.hudson.plugins.folder.Folder&from=&json={'name':'%s','mode':'com.cloudbees.hudson.plugins.folder.Folder','from':'','Submit':'OK'}",jenkinsUrl, profile.getDomain(),profile.getDomain());
+			//https://stackoverflow.com/questions/21819210/using-resttemplate-in-spring-exception-not-enough-variables-available-to-expan
+			// String th = String.format("%s/createItem?name=%s&mode=com.cloudbees.hudson.plugins.folder.Folder&from=&json={'name':'%s','mode':'com.cloudbees.hudson.plugins.folder.Folder','from':'','Submit':'OK'}",jenkinsUrl, profile.getDomain(),profile.getDomain());
+			String th = String.format("%s/createItem?name=%s&mode=com.cloudbees.hudson.plugins.folder.Folder&from=",jenkinsUrl, profile.getDomain(),profile.getDomain());
 			answer = restTemplate.postForObject(th, entity,
 					String.class);
 			
