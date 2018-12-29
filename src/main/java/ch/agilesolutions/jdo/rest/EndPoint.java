@@ -46,40 +46,48 @@ public class EndPoint {
 		LOGGER.info(String.format("new job create"));
 
 		RestTemplate restTemplate = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
-		// Thread.sleep(5000);
-		// ResponseEntity<String> response =
-		// restTemplate.getForEntity("http://swagger-ui:8082/job/deploymentpipeline/api/json",
-		// String.class);
+		HttpEntity<String> entity = new HttpEntity<String>("", headers);
+
+		// create folder
+		String answer = null;
+		try {
+			// https://stackoverflow.com/questions/50408059/create-folder-in-jenkins-ui-using-curl
+			// https://gist.githubusercontent.com/marshyski/abaa1ccbcee5b15db92c/raw/9b633cad941959a27d4da89b892009b53cb2f9c6/jenkins-api-examples
+			String th = String.format("%s/createItem?name=%s&mode=com.cloudbees.hudson.plugins.folder.Folder&from=&json={\"name\":\"%s\",\"mode\":\"com.cloudbees.hudson.plugins.folder.Folder\",\"from\":\"\",\"Submit\":\"OK\"}&Submit=OK",jenkinsUrl, profile.getDomain(),profile.getDomain());
+			answer = restTemplate.postForObject(th, entity,
+					String.class);
+			
+		} catch (Exception e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+
+		// get template
+		
+		headers.setContentType(MediaType.TEXT_XML);
+
 		ResponseEntity<String> response = null;
 		try {
 			response = restTemplate.getForEntity(jenkinsUrl + "/job/" + profile.getTemplate() + "/config.xml",
 					String.class);
-		} catch (RestClientException e1) {
+			entity = new HttpEntity<String>(response.getBody(), headers);
+		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			LOGGER.info(String.format("job template not found"));
 		}
 
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.TEXT_XML);
-
-		HttpEntity<String> entity = new HttpEntity<String>(response.getBody(), headers);
-
-		// create folder
-		// String answer = restTemplate.postForObject(jenkinsUrl +
-		// "/createItem?name=FolderName&mode=com.cloudbees.hudson.plugins.folder.Folder&from=&json=%7B%22name%22%3A%22FolderName%22%2C%22mode%22%3A%22com.cloudbees.hudson.plugins.folder.Folder%22%2C%22from%22%3A%22%22%2C%22Submit%22%3A%22OK%22%7D&Submit=OK",
-		// entity, String.class);
-
-		// https://stackoverflow.com/questions/15909650/create-jobs-and-execute-them-in-jenkins-using-rest
-
+		// create new job from template
 		try {
-			String answer = restTemplate.postForObject(
-					jenkinsUrl + "/view/pipelines/createItem?name="
+			answer = restTemplate.postForObject(
+					jenkinsUrl + "/view/" + profile.getDomain() + "/createItem?name="
 							+ String.format("%s-%s", profile.getName(), profile.getEnvironment()),
 					entity, String.class);
-		} catch (RestClientException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.info(String.format("job already exists"));
 		}
 
 		return response.getBody();
@@ -121,12 +129,14 @@ public class EndPoint {
 		try {
 			response = restTemplate.getForEntity(jenkinsUrl + "/job/" + profile.getTemplate() + "/config.xml",
 					String.class);
+
+			entity = new HttpEntity<String>(response.getBody(), headers);
+
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			LOGGER.info(String.format("job template not found"));
 		}
 
-		entity = new HttpEntity<String>(response.getBody(), headers);
 		// create new job from template
 		try {
 			answer = restTemplate.postForObject(
