@@ -13,12 +13,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import ch.agilesolutions.jdo.domain.Profile;
@@ -42,93 +42,136 @@ public class EndPoint {
 	@RequestMapping(value = "/createjob", method = RequestMethod.POST)
 	public String createPipeline(@ApiParam(value = "Spring boot service.") @RequestBody Profile profile) {
 
-		MDC.put("transaction.id", profile.getName());
-		LOGGER.info(String.format("new job create"));
+		MDC.put("ticket.id", "CRM-32");
+		MDC.put("span.id", "start pipeline");
+
+		LOGGER.info(String.format("start job"));
 
 		RestTemplate restTemplate = new RestTemplate();
+
 		HttpHeaders headers = new HttpHeaders();
+
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
 		HttpEntity<String> entity = new HttpEntity<String>("", headers);
 
 		// create folder
+
 		String answer = null;
+
 		try {
+
+			// https://www.baeldung.com/rest-template
+
 			// https://stackoverflow.com/questions/50408059/create-folder-in-jenkins-ui-using-curl
-			// https://gist.githubusercontent.com/marshyski/abaa1ccbcee5b15db92c/raw/9b633cad941959a27d4da89b892009b53cb2f9c6/jenkins-api-examples
-			String th = String.format("%s/createItem?name=%s&mode=com.cloudbees.hudson.plugins.folder.Folder&from=&json={'name':'%s','mode':'com.cloudbees.hudson.plugins.folder.Folder','from':'','Submit':'OK'}",jenkinsUrl, profile.getDomain(),profile.getDomain());
-			answer = restTemplate.postForObject(th, entity,
-					String.class);
-			
+
+			String json = String.format(
+					"{\"name\":\"%s\",\"mode\":\"com.cloudbees.hudson.plugins.folder.Folder\",\"from\":\"\",\"Submit\":\"OK\"}",
+					profile.getDomain());
+
+			MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+			map.add("name", profile.getDomain());
+			map.add("mode", "com.cloudbees.hudson.plugins.folder.Folder");
+			map.add("from", "");
+			map.add("json", json);
+			map.add("Submit", "OK");
+
+			HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
+
+			String url = String.format("%screateItem", jenkinsUrl);
+
+			ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
+
 		} catch (Exception e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
+			LOGGER.info(String.format("folder already exists"));
 		}
 
 		// get template
-		
+
 		headers.setContentType(MediaType.TEXT_XML);
 
 		ResponseEntity<String> response = null;
+
 		try {
 			response = restTemplate.getForEntity(jenkinsUrl + "/job/" + profile.getTemplate() + "/config.xml",
 					String.class);
+
 			entity = new HttpEntity<String>(response.getBody(), headers);
+
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			LOGGER.info(String.format("job template not found"));
 		}
 
 		// create new job from template
+
 		try {
+
 			answer = restTemplate.postForObject(
-					jenkinsUrl + "/view/" + profile.getDomain() + "/createItem?name="
+					jenkinsUrl + "/job/" + profile.getDomain() + "/createItem?name="
 							+ String.format("%s-%s", profile.getName(), profile.getEnvironment()),
 					entity, String.class);
+
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			LOGGER.info(String.format("job already exists"));
 		}
 
-		return response.getBody();
+		return answer;
 	}
 
 	@ApiOperation(value = "Kick off jenkins deployment pipelines")
 	@RequestMapping(value = "/startjob", method = RequestMethod.POST)
 	public String startPipeline(@ApiParam(value = "Spring boot service.") @RequestBody Profile profile) {
 
-		MDC.put("transaction.id", profile.getName());
+		MDC.put("ticket.id", "CRM-32");
+		MDC.put("span.id", "start pipeline");
+
 		LOGGER.info(String.format("start job"));
 
 		RestTemplate restTemplate = new RestTemplate();
 
 		HttpHeaders headers = new HttpHeaders();
+
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
-		String json = "{'name':'%s','mode':'com.cloudbees.hudson.plugins.folder.Folder','from':'','Submit':'OK'}";
-		HttpEntity<String> entity = new HttpEntity<String>(json, headers);
+		HttpEntity<String> entity = new HttpEntity<String>("", headers);
 
 		// create folder
+
 		String answer = null;
+
 		try {
+
+			// https://www.baeldung.com/rest-template
+
 			// https://stackoverflow.com/questions/50408059/create-folder-in-jenkins-ui-using-curl
-			// https://gist.githubusercontent.com/marshyski/abaa1ccbcee5b15db92c/raw/9b633cad941959a27d4da89b892009b53cb2f9c6/jenkins-api-examples
-			//https://stackoverflow.com/questions/21819210/using-resttemplate-in-spring-exception-not-enough-variables-available-to-expan
-			// String th = String.format("%s/createItem?name=%s&mode=com.cloudbees.hudson.plugins.folder.Folder&from=&json={'name':'%s','mode':'com.cloudbees.hudson.plugins.folder.Folder','from':'','Submit':'OK'}",jenkinsUrl, profile.getDomain(),profile.getDomain());
-			String th = String.format("%s/createItem?name=%s&mode=com.cloudbees.hudson.plugins.folder.Folder&from=",jenkinsUrl, profile.getDomain(),profile.getDomain());
-			answer = restTemplate.postForObject(th, entity,
-					String.class);
-			
+
+			String json = String.format(
+					"{\"name\":\"%s\",\"mode\":\"com.cloudbees.hudson.plugins.folder.Folder\",\"from\":\"\",\"Submit\":\"OK\"}",
+					profile.getDomain());
+
+			MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+			map.add("name", profile.getDomain());
+			map.add("mode", "com.cloudbees.hudson.plugins.folder.Folder");
+			map.add("from", "");
+			map.add("json", json);
+			map.add("Submit", "OK");
+
+			HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
+
+			String url = String.format("%screateItem", jenkinsUrl);
+
+			ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
+
 		} catch (Exception e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
+			LOGGER.info(String.format("folder already exists"));
 		}
 
 		// get template
-		
+
 		headers.setContentType(MediaType.TEXT_XML);
 
 		ResponseEntity<String> response = null;
+
 		try {
 			response = restTemplate.getForEntity(jenkinsUrl + "/job/" + profile.getTemplate() + "/config.xml",
 					String.class);
@@ -136,32 +179,34 @@ public class EndPoint {
 			entity = new HttpEntity<String>(response.getBody(), headers);
 
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			LOGGER.info(String.format("job template not found"));
 		}
 
 		// create new job from template
+
 		try {
+
 			answer = restTemplate.postForObject(
-					jenkinsUrl + "/view/" + profile.getDomain() + "/createItem?name="
+					jenkinsUrl + "/job/" + profile.getDomain() + "/createItem?name="
 							+ String.format("%s-%s", profile.getName(), profile.getEnvironment()),
 					entity, String.class);
+
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			LOGGER.info(String.format("job already exists"));
 		}
 
 		// https://stackoverflow.com/questions/15909650/create-jobs-and-execute-them-in-jenkins-using-rest
-
 		// HttpEntity<String> entity = new HttpEntity<String>("", headers);
+
 		// start job with parameters
+
 		try {
-			answer = restTemplate.postForObject(jenkinsUrl + "/view/" + profile.getDomain() + "/job/"
+			answer = restTemplate.postForObject(jenkinsUrl + "/job/" + profile.getDomain() + "/job/"
 					+ String.format("%s-%s", profile.getName(), profile.getEnvironment())
 					+ "/buildWithParameters?service=" + profile.getId(), entity, String.class);
+
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.info(String.format("error starting job"));
 		}
 
 		return answer;
