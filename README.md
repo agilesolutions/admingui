@@ -4,6 +4,7 @@ This project demonstrates a full-stack implementation using [Spring Boot Data Re
 to handle the backend wired together with [React](https://facebook.github.io/react/) and 
 [Material-UI](https://material-ui.com/) for the frontend rendering. 
 
+
 While this project is in no way what I would consider "production quality" it does
 try to demonstrate more than just the simplistic "hello world" examples. Hopefully you
 will find it of use in getting started with these great Web development platform/frameworks.
