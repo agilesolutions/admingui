@@ -363,7 +363,7 @@ var styles = function styles(theme) {
       userSelect: 'none'
     },
 
-    /* Styles applied to the root element if there are children and not `src` or `srcSet` */
+    /* Styles applied to the root element if there are children and not `src` or `srcSet`. */
     colorDefault: {
       color: theme.palette.background.default,
       backgroundColor: theme.palette.type === 'light' ? theme.palette.grey[400] : theme.palette.grey[600]
@@ -414,7 +414,7 @@ function Avatar(props) {
   }
 
   return _react.default.createElement(Component, (0, _extends2.default)({
-    className: (0, _classnames.default)(classes.root, (0, _defineProperty2.default)({}, classes.colorDefault, !img), classNameProp)
+    className: (0, _classnames.default)(classes.root, classes.system, (0, _defineProperty2.default)({}, classes.colorDefault, !img), classNameProp)
   }, other), children);
 }
 
@@ -670,19 +670,18 @@ var _colorManipulator = __webpack_require__(/*! ../styles/colorManipulator */ ".
 
 var _ButtonBase = _interopRequireDefault(__webpack_require__(/*! ../ButtonBase */ "./node_modules/@material-ui/core/ButtonBase/index.js"));
 
-var _chainPropTypes = _interopRequireDefault(__webpack_require__(/*! ../utils/chainPropTypes */ "./node_modules/@material-ui/core/utils/chainPropTypes.js"));
-
 var _helpers = __webpack_require__(/*! ../utils/helpers */ "./node_modules/@material-ui/core/utils/helpers.js");
 
 // @inheritedComponent ButtonBase
 var styles = function styles(theme) {
   return {
     /* Styles applied to the root element. */
-    root: (0, _extends2.default)({}, theme.typography.button, {
+    root: (0, _extends2.default)({
+      lineHeight: 1.75
+    }, theme.typography.button, {
       boxSizing: 'border-box',
       minWidth: 64,
-      minHeight: 36,
-      padding: '8px 16px',
+      padding: '6px 16px',
       borderRadius: theme.shape.borderRadius,
       color: theme.palette.text.primary,
       transition: theme.transitions.create(['background-color', 'box-shadow', 'border'], {
@@ -715,7 +714,7 @@ var styles = function styles(theme) {
 
     /* Styles applied to the root element if `variant="text"`. */
     text: {
-      padding: theme.spacing.unit
+      padding: '6px 8px'
     },
 
     /* Styles applied to the root element if `variant="text"` and `color="primary"`. */
@@ -753,7 +752,11 @@ var styles = function styles(theme) {
 
     /* Styles applied to the root element if `variant="outlined"`. */
     outlined: {
-      border: "1px solid ".concat(theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.23)' : 'rgba(255, 255, 255, 0.23)')
+      padding: '5px 16px',
+      border: "1px solid ".concat(theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.23)' : 'rgba(255, 255, 255, 0.23)'),
+      '&$disabled': {
+        border: "1px solid ".concat(theme.palette.action.disabled)
+      }
     },
 
     /* Styles applied to the root element if `variant="outlined"` and `color="primary"`. */
@@ -767,9 +770,6 @@ var styles = function styles(theme) {
         '@media (hover: none)': {
           backgroundColor: 'transparent'
         }
-      },
-      '&$disabled': {
-        border: "1px solid ".concat(theme.palette.action.disabled)
       }
     },
 
@@ -886,7 +886,8 @@ var styles = function styles(theme) {
 
     /* Styles applied to the root element if `color="inherit"`. */
     colorInherit: {
-      color: 'inherit'
+      color: 'inherit',
+      borderColor: 'currentColor'
     },
 
     /* Styles applied to the root element if `mini={true}` & `variant="[fab | extendedFab]"`. */
@@ -897,17 +898,14 @@ var styles = function styles(theme) {
 
     /* Styles applied to the root element if `size="small"`. */
     sizeSmall: {
-      padding: '7px 8px',
+      padding: '4px 8px',
       minWidth: 64,
-      minHeight: 32,
       fontSize: theme.typography.pxToRem(13)
     },
 
     /* Styles applied to the root element if `size="large"`. */
     sizeLarge: {
       padding: '8px 24px',
-      minWidth: 112,
-      minHeight: 40,
       fontSize: theme.typography.pxToRem(15)
     },
 
@@ -1032,7 +1030,7 @@ function Button(props) {
    * `fab` and `extendedFab` are deprecated.
    * Instead use `<Fab>` and `<Fab variant="extended">`
    */
-  variant: (0, _chainPropTypes.default)(_propTypes.default.oneOf(['text', 'outlined', 'contained', 'fab', 'extendedFab', 'flat', 'raised']), function (props) {
+  variant: (0, _utils.chainPropTypes)(_propTypes.default.oneOf(['text', 'outlined', 'contained', 'fab', 'extendedFab', 'flat', 'raised']), function (props) {
     if (props.variant === 'flat') {
       return new Error('Material-UI: the `flat` variant will be removed in the next major release. ' + '`text` is equivalent and should be used instead.');
     }
@@ -1140,8 +1138,6 @@ var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ ".
 var _reactDom = _interopRequireDefault(__webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js"));
 
 var _classnames = _interopRequireDefault(__webpack_require__(/*! classnames */ "./node_modules/classnames/index.js"));
-
-var _keycode = _interopRequireDefault(__webpack_require__(/*! keycode */ "./node_modules/keycode/index.js"));
 
 var _utils = __webpack_require__(/*! @material-ui/utils */ "./node_modules/@material-ui/utils/index.es.js");
 
@@ -1288,10 +1284,9 @@ function (_React$Component) {
           component = _this$props.component,
           focusRipple = _this$props.focusRipple,
           onKeyDown = _this$props.onKeyDown,
-          onClick = _this$props.onClick;
-      var key = (0, _keycode.default)(event); // Check if key is already down to avoid repeats being counted as multiple activations
+          onClick = _this$props.onClick; // Check if key is already down to avoid repeats being counted as multiple activations
 
-      if (focusRipple && !_this.keyDown && _this.state.focusVisible && _this.ripple && key === 'space') {
+      if (focusRipple && !_this.keyDown && _this.state.focusVisible && _this.ripple && event.key === ' ') {
         _this.keyDown = true;
         event.persist();
 
@@ -1305,7 +1300,7 @@ function (_React$Component) {
       } // Keyboard accessibility for non interactive elements
 
 
-      if (event.target === event.currentTarget && component && component !== 'button' && (key === 'space' || key === 'enter') && !(_this.button.tagName === 'A' && _this.button.href)) {
+      if (event.target === event.currentTarget && component && component !== 'button' && (event.key === ' ' || event.key === 'Enter') && !(_this.button.tagName === 'A' && _this.button.href)) {
         event.preventDefault();
 
         if (onClick) {
@@ -1315,7 +1310,7 @@ function (_React$Component) {
     };
 
     _this.handleKeyUp = function (event) {
-      if (_this.props.focusRipple && (0, _keycode.default)(event) === 'space' && _this.ripple && _this.state.focusVisible) {
+      if (_this.props.focusRipple && event.key === ' ' && _this.ripple && _this.state.focusVisible) {
         _this.keyDown = false;
         event.persist();
 
@@ -1548,8 +1543,10 @@ function (_React$Component) {
   /**
    * This property can help a person know which element has the keyboard focus.
    * The class name will be applied when the element gain the focus through a keyboard interaction.
-   * It's a polyfill for the [CSS :focus-visible feature](https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudo).
-   * The rational for using this feature [is explain here](https://github.com/WICG/focus-visible/blob/master/explainer.md).
+   * It's a polyfill for the [CSS :focus-visible selector](https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudo).
+   * The rationale for using this feature [is explained here](https://github.com/WICG/focus-visible/blob/master/explainer.md).
+   * A [polyfill can be used](https://github.com/WICG/focus-visible) to apply a `focus-visible` class to other components
+   * if needed.
    */
   focusVisibleClassName: _propTypes.default.string,
 
@@ -1896,7 +1893,10 @@ var styles = function styles(theme) {
     rippleVisible: {
       opacity: 0.3,
       transform: 'scale(1)',
-      animation: "mui-ripple-enter ".concat(DURATION, "ms ").concat(theme.transitions.easing.easeInOut)
+      animation: "mui-ripple-enter ".concat(DURATION, "ms ").concat(theme.transitions.easing.easeInOut),
+      // Backward compatible logic between JSS v9 and v10.
+      // To remove with the release of Material-UI v4
+      animationName: '$mui-ripple-enter'
     },
 
     /* Styles applied to the internal `Ripple` components `ripplePulsate` class. */
@@ -1917,7 +1917,10 @@ var styles = function styles(theme) {
     /* Styles applied to the internal `Ripple` components `childLeaving` class. */
     childLeaving: {
       opacity: 0,
-      animation: "mui-ripple-exit ".concat(DURATION, "ms ").concat(theme.transitions.easing.easeInOut)
+      animation: "mui-ripple-exit ".concat(DURATION, "ms ").concat(theme.transitions.easing.easeInOut),
+      // Backward compatible logic between JSS v9 and v10.
+      // To remove with the release of Material-UI v4
+      animationName: '$mui-ripple-exit'
     },
 
     /* Styles applied to the internal `Ripple` components `childPulsate` class. */
@@ -1925,7 +1928,10 @@ var styles = function styles(theme) {
       position: 'absolute',
       left: 0,
       top: 0,
-      animation: "mui-ripple-pulsate 2500ms ".concat(theme.transitions.easing.easeInOut, " 200ms infinite")
+      animation: "mui-ripple-pulsate 2500ms ".concat(theme.transitions.easing.easeInOut, " 200ms infinite"),
+      // Backward compatible logic between JSS v9 and v10.
+      // To remove with the release of Material-UI v4
+      animationName: '$mui-ripple-pulsate'
     },
     '@keyframes mui-ripple-enter': {
       '0%': {
@@ -1979,7 +1985,6 @@ function (_React$PureComponent) {
 
     _this = (0, _possibleConstructorReturn2.default)(this, (_getPrototypeOf2 = (0, _getPrototypeOf3.default)(TouchRipple)).call.apply(_getPrototypeOf2, [this].concat(args)));
     _this.state = {
-      // eslint-disable-next-line react/no-unused-state
       nextKey: 0,
       ripples: []
     };
@@ -2055,7 +2060,7 @@ function (_React$PureComponent) {
             rippleSize: rippleSize,
             cb: cb
           });
-        }; // Deplay the execution of the ripple effect.
+        }; // Delay the execution of the ripple effect.
 
 
         _this.startTimer = setTimeout(function () {
@@ -2115,7 +2120,7 @@ function (_React$PureComponent) {
         _this.startTimerCommit = null;
         _this.startTimer = setTimeout(function () {
           _this.stop(event, cb);
-        }, 0);
+        });
         return;
       }
 
@@ -2261,8 +2266,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.detectFocusVisible = detectFocusVisible;
 exports.listenForFocusKeys = listenForFocusKeys;
 
-var _keycode = _interopRequireDefault(__webpack_require__(/*! keycode */ "./node_modules/keycode/index.js"));
-
 var _warning = _interopRequireDefault(__webpack_require__(/*! warning */ "./node_modules/warning/warning.js"));
 
 var _ownerDocument = _interopRequireDefault(__webpack_require__(/*! ../utils/ownerDocument */ "./node_modules/@material-ui/core/utils/ownerDocument.js"));
@@ -2298,20 +2301,28 @@ function detectFocusVisible(instance, element, callback) {
   }, instance.focusVisibleCheckTime);
 }
 
-var FOCUS_KEYS = ['tab', 'enter', 'space', 'esc', 'up', 'down', 'left', 'right'];
+var FOCUS_KEYS = [9, // 'Tab',
+13, // 'Enter',
+27, // 'Escape',
+32, // ' ',
+37, // 'ArrowLeft',
+38, // 'ArrowUp',
+39, // 'ArrowRight',
+40];
 
 function isFocusKey(event) {
-  return FOCUS_KEYS.indexOf((0, _keycode.default)(event)) > -1;
+  // Use event.keyCode to support IE 11
+  return FOCUS_KEYS.indexOf(event.keyCode) > -1;
 }
 
 var handleKeyUpEvent = function handleKeyUpEvent(event) {
   if (isFocusKey(event)) {
-    internal.focusKeyPressed = true; // Let's consider that the user is using a keyboard during a window frame of 1s.
+    internal.focusKeyPressed = true; // Let's consider that the user is using a keyboard during a window frame of 500ms.
 
     clearTimeout(internal.keyUpEventTimeout);
     internal.keyUpEventTimeout = setTimeout(function () {
       internal.focusKeyPressed = false;
-    }, 1e3);
+    }, 500);
   }
 };
 
@@ -2627,8 +2638,6 @@ var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ ".
 
 var _classnames = _interopRequireDefault(__webpack_require__(/*! classnames */ "./node_modules/classnames/index.js"));
 
-var _keycode = _interopRequireDefault(__webpack_require__(/*! keycode */ "./node_modules/keycode/index.js"));
-
 var _warning = _interopRequireDefault(__webpack_require__(/*! warning */ "./node_modules/warning/warning.js"));
 
 var _utils = __webpack_require__(/*! @material-ui/utils */ "./node_modules/@material-ui/utils/index.es.js");
@@ -2789,13 +2798,13 @@ var styles = function styles(theme) {
       fontSize: theme.typography.pxToRem(16)
     },
 
-    /* Styles applied to the `avatar` element if `color="primary"` */
+    /* Styles applied to the `avatar` element if `color="primary"`. */
     avatarColorPrimary: {
       color: theme.palette.primary.contrastText,
       backgroundColor: theme.palette.primary.dark
     },
 
-    /* Styles applied to the `avatar` element if `color="secondary"` */
+    /* Styles applied to the `avatar` element if `color="secondary"`. */
     avatarColorSecondary: {
       color: theme.palette.secondary.contrastText,
       backgroundColor: theme.palette.secondary.dark
@@ -2814,12 +2823,12 @@ var styles = function styles(theme) {
       marginRight: -8
     },
 
-    /* Styles applied to the `icon` element if `color="primary"` */
+    /* Styles applied to the `icon` element if `color="primary"`. */
     iconColorPrimary: {
       color: 'inherit'
     },
 
-    /* Styles applied to the `icon` element if `color="secondary"` */
+    /* Styles applied to the `icon` element if `color="secondary"`. */
     iconColorSecondary: {
       color: 'inherit'
     },
@@ -2858,9 +2867,9 @@ var styles = function styles(theme) {
 
     /* Styles applied to the deleteIcon element if `color="secondary"` and `variant="default"`. */
     deleteIconColorSecondary: {
-      color: (0, _colorManipulator.fade)(theme.palette.primary.contrastText, 0.7),
+      color: (0, _colorManipulator.fade)(theme.palette.secondary.contrastText, 0.7),
       '&:hover, &:active': {
-        color: theme.palette.primary.contrastText
+        color: theme.palette.secondary.contrastText
       }
     },
 
@@ -2928,9 +2937,9 @@ function (_React$Component) {
         return;
       }
 
-      var key = (0, _keycode.default)(event);
+      var key = event.key;
 
-      if (key === 'space' || key === 'enter' || key === 'backspace' || key === 'esc') {
+      if (key === ' ' || key === 'Enter' || key === 'Backspace' || key === 'Escape') {
         event.preventDefault();
       }
     };
@@ -2950,13 +2959,13 @@ function (_React$Component) {
         return;
       }
 
-      var key = (0, _keycode.default)(event);
+      var key = event.key;
 
-      if (onClick && (key === 'space' || key === 'enter')) {
+      if (onClick && (key === ' ' || key === 'Enter')) {
         onClick(event);
-      } else if (onDelete && key === 'backspace') {
+      } else if (onDelete && key === 'Backspace') {
         onDelete(event);
-      } else if (key === 'esc' && _this.chipRef) {
+      } else if (key === 'Escape' && _this.chipRef) {
         _this.chipRef.blur();
       }
     };
@@ -3072,7 +3081,7 @@ function (_React$Component) {
   /**
    * If true, the chip will appear clickable, and will raise when pressed,
    * even if the onClick property is not defined.
-   * If false, the chip will not be clickable, even if onClick peoperty is defined.
+   * If false, the chip will not be clickable, even if onClick property is defined.
    * This can be used, for example,
    * along with the component property to indicate an anchor Chip is clickable.
    */
@@ -3562,10 +3571,23 @@ function (_React$Component) {
 
     _this = (0, _possibleConstructorReturn2.default)(this, (_getPrototypeOf2 = (0, _getPrototypeOf3.default)(Dialog)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
+    _this.handleMouseDown = function (event) {
+      _this.mouseDownTarget = event.target;
+    };
+
     _this.handleBackdropClick = function (event) {
+      // Ignore the events not coming from the "backdrop"
+      // We don't want to close the dialog when clicking the dialog content.
       if (event.target !== event.currentTarget) {
         return;
+      } // Make sure the event starts and ends on the same DOM element.
+
+
+      if (event.target !== _this.mouseDownTarget) {
+        return;
       }
+
+      _this.mouseDownTarget = null;
 
       if (_this.props.onBackdropClick) {
         _this.props.onBackdropClick(event);
@@ -3617,6 +3639,7 @@ function (_React$Component) {
         BackdropProps: (0, _extends2.default)({
           transitionDuration: transitionDuration
         }, BackdropProps),
+        closeAfterTransition: true,
         disableBackdropClick: disableBackdropClick,
         disableEscapeKeyDown: disableEscapeKeyDown,
         onBackdropClick: onBackdropClick,
@@ -3637,6 +3660,7 @@ function (_React$Component) {
       }, TransitionProps), _react.default.createElement("div", {
         className: (0, _classnames.default)(classes.container, classes["scroll".concat((0, _helpers.capitalize)(scroll))]),
         onClick: this.handleBackdropClick,
+        onMouseDown: this.handleMouseDown,
         role: "document"
       }, _react.default.createElement(PaperComponent, (0, _extends2.default)({
         elevation: 24
@@ -4214,8 +4238,6 @@ var _withStyles = _interopRequireDefault(__webpack_require__(/*! ../styles/withS
 
 var _colorManipulator = __webpack_require__(/*! ../styles/colorManipulator */ "./node_modules/@material-ui/core/styles/colorManipulator.js");
 
-var _chainPropTypes = _interopRequireDefault(__webpack_require__(/*! ../utils/chainPropTypes */ "./node_modules/@material-ui/core/utils/chainPropTypes.js"));
-
 var styles = function styles(theme) {
   return {
     /* Styles applied to the root element. */
@@ -4300,7 +4322,7 @@ function Divider(props) {
    * __WARNING__: `inset` is deprecated.
    * Instead use `variant="inset"`.
    */
-  inset: (0, _chainPropTypes.default)(_propTypes.default.bool, function (props) {
+  inset: (0, _utils.chainPropTypes)(_propTypes.default.bool, function (props) {
     /* istanbul ignore if */
     if (props.inset) {
       return new Error('Material-UI: you are using the deprecated `inset` property ' + 'that will be removed in the next major release. The property `variant="inset"` ' + 'is equivalent and should be used instead.');
@@ -4617,6 +4639,11 @@ function (_React$Component) {
   anchor: _propTypes.default.oneOf(['left', 'top', 'right', 'bottom']),
 
   /**
+   * @ignore
+   */
+  BackdropProps: _propTypes.default.object,
+
+  /**
    * The contents of the drawer.
    */
   children: _propTypes.default.node,
@@ -4855,8 +4882,7 @@ function (_React$Component) {
       }, other), function (state, childProps) {
         return _react.default.cloneElement(children, (0, _extends2.default)({
           style: (0, _extends2.default)({
-            opacity: 0,
-            willChange: 'opacity'
+            opacity: 0
           }, styles[state], style)
         }, childProps));
       });
@@ -5395,7 +5421,7 @@ var styles = {
 };
 /**
  * Provides context such as filled/focused/error/required for form inputs.
- * Relying on the context provides high flexibilty and ensures that the state always stays
+ * Relying on the context provides high flexibility and ensures that the state always stays
  * consistent across the children of the `FormControl`.
  * This context is used by the following components:
  *  - FormLabel
@@ -7699,6 +7725,8 @@ var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ ".
 
 var _classnames = _interopRequireDefault(__webpack_require__(/*! classnames */ "./node_modules/classnames/index.js"));
 
+var _utils = __webpack_require__(/*! @material-ui/utils */ "./node_modules/@material-ui/utils/index.es.js");
+
 var _withStyles = _interopRequireDefault(__webpack_require__(/*! ../styles/withStyles */ "./node_modules/@material-ui/core/styles/withStyles.js"));
 
 var _colorManipulator = __webpack_require__(/*! ../styles/colorManipulator */ "./node_modules/@material-ui/core/styles/colorManipulator.js");
@@ -7810,7 +7838,19 @@ function IconButton(props) {
   /**
    * The icon element.
    */
-  children: _propTypes.default.node,
+  children: (0, _utils.chainPropTypes)(_propTypes.default.node, function (props) {
+    var found = _react.default.Children.toArray(props.children).some(function (child) {
+      return _react.default.isValidElement(child) && child.props.onClick;
+    });
+
+    if (found) {
+      return new Error(['Material-UI: you are providing an onClick event listener ' + 'to a child of a button element.', 'Firefox will never trigger the event.', 'You should move the onClick listener to the parent button element.', 'https://github.com/mui-org/material-ui/issues/13957', // Change error message slightly on every check to prevent caching when testing
+      // which would not trigger console errors on subsequent fails
+       false ? undefined : ''].join('\n'));
+    }
+
+    return null;
+  }),
 
   /**
    * Override or extend the styles applied to the component.
@@ -8640,6 +8680,8 @@ function (_React$Component) {
           type = _this$props2.type,
           value = _this$props2.value,
           other = (0, _objectWithoutProperties2.default)(_this$props2, ["autoComplete", "autoFocus", "classes", "className", "defaultValue", "disabled", "endAdornment", "error", "fullWidth", "id", "inputComponent", "inputProps", "inputRef", "margin", "muiFormControl", "multiline", "name", "onBlur", "onChange", "onClick", "onEmpty", "onFilled", "onFocus", "onKeyDown", "onKeyUp", "placeholder", "readOnly", "renderPrefix", "rows", "rowsMax", "startAdornment", "type", "value"]);
+      var ariaDescribedby = other['aria-describedby'];
+      delete other['aria-describedby'];
       var fcs = (0, _formControlState.default)({
         props: this.props,
         muiFormControl: muiFormControl,
@@ -8680,16 +8722,17 @@ function (_React$Component) {
         }, inputProps);
       }
 
-      return _react.default.createElement(_FormControlContext.default.Provider, {
-        value: null
-      }, _react.default.createElement("div", (0, _extends2.default)({
+      return _react.default.createElement("div", (0, _extends2.default)({
         className: className,
         onClick: this.handleClick
       }, other), renderPrefix ? renderPrefix((0, _extends2.default)({}, fcs, {
         startAdornment: startAdornment,
         focused: focused
-      })) : null, startAdornment, _react.default.createElement(InputComponent, (0, _extends2.default)({
+      })) : null, startAdornment, _react.default.createElement(_FormControlContext.default.Provider, {
+        value: null
+      }, _react.default.createElement(InputComponent, (0, _extends2.default)({
         "aria-invalid": fcs.error,
+        "aria-describedby": ariaDescribedby,
         autoComplete: autoComplete,
         autoFocus: autoFocus,
         className: inputClassName,
@@ -8707,7 +8750,7 @@ function (_React$Component) {
         required: fcs.required,
         rows: rows,
         value: value
-      }, inputProps)), endAdornment));
+      }, inputProps))), endAdornment);
     }
   }]);
   return InputBase;
@@ -8818,6 +8861,11 @@ function (_React$Component) {
    * You can pull out the new value by accessing `event.target.value`.
    */
   onChange: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onClick: _propTypes.default.func,
 
   /**
    * @ignore
@@ -8976,7 +9024,7 @@ var styles = {
     // Overflow also needed to here to remove the extra row
     // added to textareas in Firefox.
     overflow: 'hidden',
-    // Visibility needed to hide the extra text area on ipads
+    // Visibility needed to hide the extra text area on iPads
     visibility: 'hidden',
     position: 'absolute',
     height: 'auto',
@@ -9076,7 +9124,10 @@ function (_React$Component) {
         this.shadowRef.value = props.value == null ? '' : String(props.value);
       }
 
-      var lineHeight = this.singlelineShadowRef.scrollHeight;
+      var lineHeight = this.singlelineShadowRef.scrollHeight; // The Textarea might not be visible (p.ex: display: none).
+      // In this case, the layout values read from the DOM will be 0.
+
+      lineHeight = lineHeight === 0 ? ROWS_HEIGHT : lineHeight;
       var newHeight = this.shadowRef.scrollHeight; // Guarding for jsdom, where scrollHeight isn't present.
       // See https://github.com/tmpvar/jsdom/issues/1013
 
@@ -9107,10 +9158,10 @@ function (_React$Component) {
           onChange = _this$props.onChange,
           rows = _this$props.rows,
           rowsMax = _this$props.rowsMax,
+          style = _this$props.style,
           textareaRef = _this$props.textareaRef,
           value = _this$props.value,
-          style = _this$props.style,
-          other = (0, _objectWithoutProperties2.default)(_this$props, ["classes", "className", "defaultValue", "onChange", "rows", "rowsMax", "textareaRef", "value", "style"]);
+          other = (0, _objectWithoutProperties2.default)(_this$props, ["classes", "className", "defaultValue", "onChange", "rows", "rowsMax", "style", "textareaRef", "value"]);
       return _react.default.createElement("div", {
         className: classes.root
       }, _react.default.createElement(_reactEventListener.default, {
@@ -9185,6 +9236,11 @@ function (_React$Component) {
    * Maximum number of rows to display when multiline option is set to true.
    */
   rowsMax: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number]),
+
+  /**
+   * @ignore
+   */
+  style: _propTypes.default.object,
 
   /**
    * Use that property to pass a ref callback to the native textarea element.
@@ -9796,10 +9852,10 @@ var styles = function styles(theme) {
       boxSizing: 'border-box',
       textAlign: 'left',
       paddingTop: 11,
-      // To use 10px in v4.0.0
+      // To use 10px in v4
       paddingBottom: 11,
-      // To use 10px in v4.0.0
-      '&$selected, &$selected:hover': {
+      // To use 10px in v4
+      '&$selected, &$selected:hover, &$selected:focus': {
         backgroundColor: theme.palette.action.selected
       }
     },
@@ -9808,12 +9864,10 @@ var styles = function styles(theme) {
     container: {
       position: 'relative'
     },
-    // TODO: Sanity check this - why is focusVisibleClassName prop apparently applied to a div?
+    // To remove in v4
 
     /* Styles applied to the `component`'s `focusVisibleClassName` property if `button={true}`. */
-    focusVisible: {
-      backgroundColor: theme.palette.action.hover
-    },
+    focusVisible: {},
 
     /* Legacy styles applied to the root element. Use `root` instead. */
     default: {},
@@ -9858,13 +9912,16 @@ var styles = function styles(theme) {
         '@media (hover: none)': {
           backgroundColor: 'transparent'
         }
+      },
+      '&:focus': {
+        backgroundColor: theme.palette.action.hover
       }
     },
 
     /* Styles applied to the `component` element if `children` includes `ListItemSecondaryAction`. */
     secondaryAction: {
       // Add some space to avoid collision as `ListItemSecondaryAction`
-      // is absolutely positionned.
+      // is absolutely positioned.
       paddingRight: 32
     },
 
@@ -9872,6 +9929,10 @@ var styles = function styles(theme) {
     selected: {}
   };
 };
+/**
+ * Uses an additional container component if `ListItemSecondaryAction` is the last child.
+ */
+
 
 exports.styles = styles;
 
@@ -9954,9 +10015,31 @@ function ListItem(props) {
   button: _propTypes.default.bool,
 
   /**
-   * The content of the component.
+   * The content of the component. If a `ListItemSecondaryAction` is used it must
+   * be the last child.
    */
-  children: _propTypes.default.node,
+  children: (0, _utils.chainPropTypes)(_propTypes.default.node, function (props) {
+    var children = _react.default.Children.toArray(props.children); // React.Children.toArray(props.children).findLastIndex(isListItemSecondaryAction)
+
+
+    var secondaryActionIndex = -1;
+
+    for (var i = children.length - 1; i >= 0; i -= 1) {
+      var child = children[i];
+
+      if ((0, _reactHelpers.isMuiElement)(child, ['ListItemSecondaryAction'])) {
+        secondaryActionIndex = i;
+        break;
+      }
+    } //  is ListItemSecondaryAction the last child of ListItem
+
+
+    if (secondaryActionIndex !== -1 && secondaryActionIndex !== children.length - 1) {
+      return new Error('Material-UI: you used an element after ListItemSecondaryAction. ' + 'For ListItem to detect that it has a secondary action ' + "you must pass it has the last children to ListItem.".concat( false ? undefined : ''));
+    }
+
+    return null;
+  }),
 
   /**
    * Override or extend the styles applied to the component.
@@ -9977,13 +10060,12 @@ function ListItem(props) {
   component: _utils.componentPropType,
 
   /**
-   * The container component used when a `ListItemSecondaryAction` is rendered.
+   * The container component used when a `ListItemSecondaryAction` is the last child.
    */
   ContainerComponent: _utils.componentPropType,
 
   /**
-   * Properties applied to the container element when the component
-   * is used to display a `ListItemSecondaryAction`.
+   * Properties applied to the container component if used.
    */
   ContainerProps: _propTypes.default.object,
 
@@ -10315,7 +10397,8 @@ function ListItemText(props) {
       primaryTypographyProps = props.primaryTypographyProps,
       secondaryProp = props.secondary,
       secondaryTypographyProps = props.secondaryTypographyProps,
-      other = (0, _objectWithoutProperties2.default)(props, ["children", "classes", "className", "disableTypography", "inset", "primary", "primaryTypographyProps", "secondary", "secondaryTypographyProps"]);
+      theme = props.theme,
+      other = (0, _objectWithoutProperties2.default)(props, ["children", "classes", "className", "disableTypography", "inset", "primary", "primaryTypographyProps", "secondary", "secondaryTypographyProps", "theme"]);
   return _react.default.createElement(_ListContext.default.Consumer, null, function (_ref) {
     var _classNames3;
 
@@ -10324,8 +10407,7 @@ function ListItemText(props) {
 
     if (primary != null && primary.type !== _Typography.default && !disableTypography) {
       primary = _react.default.createElement(_Typography.default, (0, _extends2.default)({
-        variant: "subheading",
-        internalDeprecatedVariant: true,
+        variant: theme.typography.useNextVariants ? 'body1' : 'subheading',
         className: (0, _classnames.default)(classes.primary, (0, _defineProperty2.default)({}, classes.textDense, dense)),
         component: "span"
       }, primaryTypographyProps), primary);
@@ -10397,7 +10479,12 @@ function ListItemText(props) {
    * These props will be forwarded to the secondary typography component
    * (as long as disableTypography is not `true`).
    */
-  secondaryTypographyProps: _propTypes.default.object
+  secondaryTypographyProps: _propTypes.default.object,
+
+  /**
+   * @ignore
+   */
+  theme: _propTypes.default.object.isRequired
 } : undefined;
 ListItemText.defaultProps = {
   disableTypography: false,
@@ -10405,7 +10492,8 @@ ListItemText.defaultProps = {
 };
 
 var _default = (0, _withStyles.default)(styles, {
-  name: 'MuiListItemText'
+  name: 'MuiListItemText',
+  withTheme: true
 })(ListItemText);
 
 exports.default = _default;
@@ -10574,8 +10662,8 @@ function (_React$Component) {
       }
     };
 
-    _this.handleListKeyDown = function (event, key) {
-      if (key === 'tab') {
+    _this.handleListKeyDown = function (event) {
+      if (event.key === 'Tab') {
         event.preventDefault();
 
         if (_this.props.onClose) {
@@ -10959,8 +11047,6 @@ var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ ".
 
 var _reactDom = _interopRequireDefault(__webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js"));
 
-var _keycode = _interopRequireDefault(__webpack_require__(/*! keycode */ "./node_modules/keycode/index.js"));
-
 var _warning = _interopRequireDefault(__webpack_require__(/*! warning */ "./node_modules/warning/warning.js"));
 
 var _ownerDocument = _interopRequireDefault(__webpack_require__(/*! ../utils/ownerDocument */ "./node_modules/@material-ui/core/utils/ownerDocument.js"));
@@ -11008,31 +11094,41 @@ function (_React$Component) {
 
     _this.handleKeyDown = function (event) {
       var list = _this.listRef;
-      var key = (0, _keycode.default)(event);
+      var key = event.key;
       var currentFocus = (0, _ownerDocument.default)(list).activeElement;
 
-      if ((key === 'up' || key === 'down') && (!currentFocus || currentFocus && !list.contains(currentFocus))) {
+      if ((key === 'ArrowUp' || key === 'ArrowDown') && (!currentFocus || currentFocus && !list.contains(currentFocus))) {
         if (_this.selectedItemRef) {
           _this.selectedItemRef.focus();
         } else {
           list.firstChild.focus();
         }
-      } else if (key === 'down') {
+      } else if (key === 'ArrowDown') {
         event.preventDefault();
 
         if (currentFocus.nextElementSibling) {
           currentFocus.nextElementSibling.focus();
+        } else if (!_this.props.disableListWrap) {
+          list.firstChild.focus();
         }
-      } else if (key === 'up') {
+      } else if (key === 'ArrowUp') {
         event.preventDefault();
 
         if (currentFocus.previousElementSibling) {
           currentFocus.previousElementSibling.focus();
+        } else if (!_this.props.disableListWrap) {
+          list.lastChild.focus();
         }
+      } else if (key === 'Home') {
+        event.preventDefault();
+        list.firstChild.focus();
+      } else if (key === 'End') {
+        event.preventDefault();
+        list.lastChild.focus();
       }
 
       if (_this.props.onKeyDown) {
-        _this.props.onKeyDown(event, key);
+        _this.props.onKeyDown(event);
       }
     };
 
@@ -11119,7 +11215,8 @@ function (_React$Component) {
           className = _this$props.className,
           onBlur = _this$props.onBlur,
           onKeyDown = _this$props.onKeyDown,
-          other = (0, _objectWithoutProperties2.default)(_this$props, ["children", "className", "onBlur", "onKeyDown"]);
+          disableListWrap = _this$props.disableListWrap,
+          other = (0, _objectWithoutProperties2.default)(_this$props, ["children", "className", "onBlur", "onKeyDown", "disableListWrap"]);
       return _react.default.createElement(_List.default, (0, _extends2.default)({
         role: "menu",
         ref: function ref(_ref) {
@@ -11159,6 +11256,11 @@ function (_React$Component) {
   className: _propTypes.default.string,
 
   /**
+   * If `true`, the menu items will not wrap focus.
+   */
+  disableListWrap: _propTypes.default.bool,
+
+  /**
    * @ignore
    */
   onBlur: _propTypes.default.func,
@@ -11168,6 +11270,9 @@ function (_React$Component) {
    */
   onKeyDown: _propTypes.default.func
 } : undefined;
+MenuList.defaultProps = {
+  disableListWrap: false
+};
 var _default = MenuList;
 exports.default = _default;
 
@@ -11244,8 +11349,6 @@ var _classnames = _interopRequireDefault(__webpack_require__(/*! classnames */ "
 
 var _warning = _interopRequireDefault(__webpack_require__(/*! warning */ "./node_modules/warning/warning.js"));
 
-var _keycode = _interopRequireDefault(__webpack_require__(/*! keycode */ "./node_modules/keycode/index.js"));
-
 var _utils = __webpack_require__(/*! @material-ui/utils */ "./node_modules/@material-ui/utils/index.es.js");
 
 var _ownerDocument = _interopRequireDefault(__webpack_require__(/*! ../utils/ownerDocument */ "./node_modules/@material-ui/core/utils/ownerDocument.js"));
@@ -11300,6 +11403,16 @@ if ( true && !_react.default.createContext) {
   throw new Error('Material-UI: react@16.3.0 or greater is required.');
 }
 /**
+ * Modal is a lower-level construct that is leveraged by the following components:
+ *
+ * - [Dialog](/api/dialog/)
+ * - [Drawer](/api/drawer/)
+ * - [Menu](/api/menu/)
+ * - [Popover](/api/popover/)
+ *
+ * If you are creating a modal dialog, you probably want to use the [Dialog](/api/dialog/) component
+ * rather than directly using Modal.
+ *
  * This component shares many concepts with [react-overlays](https://react-bootstrap.github.io/react-overlays/#modals).
  */
 
@@ -11322,7 +11435,6 @@ function (_React$Component) {
 
       _this.props.manager.add((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), container);
 
-      doc.addEventListener('keydown', _this.handleDocumentKeyDown);
       doc.addEventListener('focus', _this.enforceFocus, true);
 
       if (_this.dialogRef) {
@@ -11351,17 +11463,27 @@ function (_React$Component) {
       _this.modalRef.scrollTop = 0;
     };
 
-    _this.handleClose = function () {
-      _this.props.manager.remove((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)));
+    _this.handleClose = function (reason) {
+      var hasTransition = getHasTransition(_this.props);
+      /* If the component does not have a transition or is unmounting remove the Modal
+      otherwise let the transition handle removing the style, this prevents elements
+      moving around when the Modal is closed. */
+
+      if (!(hasTransition && _this.props.closeAfterTransition) || reason === 'unmount') {
+        _this.props.manager.remove((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)));
+      }
 
       var doc = (0, _ownerDocument.default)(_this.mountNode);
-      doc.removeEventListener('keydown', _this.handleDocumentKeyDown);
       doc.removeEventListener('focus', _this.enforceFocus, true);
 
       _this.restoreLastFocus();
     };
 
     _this.handleExited = function () {
+      if (_this.props.closeAfterTransition) {
+        _this.props.manager.remove((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)));
+      }
+
       _this.setState({
         exited: true
       });
@@ -11381,11 +11503,22 @@ function (_React$Component) {
       }
     };
 
-    _this.handleDocumentKeyDown = function (event) {
+    _this.handleKeyDown = function (event) {
+      // event.defaultPrevented:
+      //
       // Ignore events that have been `event.preventDefault()` marked.
-      if ((0, _keycode.default)(event) !== 'esc' || !_this.isTopModal() || event.defaultPrevented) {
+      // preventDefault() is meant to stop default behaviours like
+      // clicking a checkbox to check it, hitting a button to submit a form,
+      // and hitting left arrow to move the cursor in a text input etc.
+      // Only special HTML elements have these default bahaviours.
+      //
+      // To remove in v4.
+      if (event.key !== 'Escape' || !_this.isTopModal() || event.defaultPrevented) {
         return;
-      }
+      } // Swallow the event, in case someone is listening for the escape key on the body.
+
+
+      event.stopPropagation();
 
       if (_this.props.onEscapeKeyDown) {
         _this.props.onEscapeKeyDown(event);
@@ -11452,7 +11585,7 @@ function (_React$Component) {
       this.mounted = false;
 
       if (this.props.open || getHasTransition(this.props) && !this.state.exited) {
-        this.handleClose();
+        this.handleClose('unmount');
       }
     }
   }, {
@@ -11505,6 +11638,7 @@ function (_React$Component) {
           children = _this$props.children,
           classes = _this$props.classes,
           className = _this$props.className,
+          closeAfterTransition = _this$props.closeAfterTransition,
           container = _this$props.container,
           disableAutoFocus = _this$props.disableAutoFocus,
           disableBackdropClick = _this$props.disableBackdropClick,
@@ -11520,7 +11654,7 @@ function (_React$Component) {
           onEscapeKeyDown = _this$props.onEscapeKeyDown,
           onRendered = _this$props.onRendered,
           open = _this$props.open,
-          other = (0, _objectWithoutProperties2.default)(_this$props, ["BackdropComponent", "BackdropProps", "children", "classes", "className", "container", "disableAutoFocus", "disableBackdropClick", "disableEnforceFocus", "disableEscapeKeyDown", "disablePortal", "disableRestoreFocus", "hideBackdrop", "keepMounted", "manager", "onBackdropClick", "onClose", "onEscapeKeyDown", "onRendered", "open"]);
+          other = (0, _objectWithoutProperties2.default)(_this$props, ["BackdropComponent", "BackdropProps", "children", "classes", "className", "closeAfterTransition", "container", "disableAutoFocus", "disableBackdropClick", "disableEnforceFocus", "disableEscapeKeyDown", "disablePortal", "disableRestoreFocus", "hideBackdrop", "keepMounted", "manager", "onBackdropClick", "onClose", "onEscapeKeyDown", "onRendered", "open"]);
       var exited = this.state.exited;
       var hasTransition = getHasTransition(this.props);
 
@@ -11549,7 +11683,9 @@ function (_React$Component) {
         onRendered: this.handleRendered
       }, _react.default.createElement("div", (0, _extends2.default)({
         ref: this.handleModalRef,
-        className: (0, _classnames.default)('mui-fixed', classes.root, className, (0, _defineProperty2.default)({}, classes.hidden, exited))
+        onKeyDown: this.handleKeyDown,
+        role: "presentation",
+        className: (0, _classnames.default)(classes.root, className, (0, _defineProperty2.default)({}, classes.hidden, exited))
       }, other), hideBackdrop ? null : _react.default.createElement(BackdropComponent, (0, _extends2.default)({
         open: open,
         onClick: this.handleBackdropClick
@@ -11605,6 +11741,11 @@ function (_React$Component) {
    * @ignore
    */
   className: _propTypes.default.string,
+
+  /**
+   * When set to true the Modal waits until a nested Transition is completed before closing.
+   */
+  closeAfterTransition: _propTypes.default.bool,
 
   /**
    * A node, component instance, or function that returns either.
@@ -11665,6 +11806,8 @@ function (_React$Component) {
   keepMounted: _propTypes.default.bool,
 
   /**
+   * @ignore
+   *
    * A modal manager used to track and manage the state of open
    * Modals. This enables customizing how modals interact within a container.
    */
@@ -11703,6 +11846,7 @@ function (_React$Component) {
 } : undefined;
 Modal.defaultProps = {
   BackdropComponent: _Backdrop.default,
+  closeAfterTransition: false,
   disableAutoFocus: false,
   disableBackdropClick: false,
   disableEnforceFocus: false,
@@ -11773,13 +11917,13 @@ function getPaddingRight(node) {
 }
 
 function setContainerStyle(data) {
-  var style = {
-    overflow: 'hidden'
-  }; // We are only interested in the actual `style` here because we will override it.
-
+  // We are only interested in the actual `style` here because we will override it.
   data.style = {
     overflow: data.container.style.overflow,
     paddingRight: data.container.style.paddingRight
+  };
+  var style = {
+    overflow: 'hidden'
   };
 
   if (data.overflowing) {
@@ -11818,7 +11962,7 @@ function removeContainerStyle(data) {
 /**
  * @ignore - do not document.
  *
- * Proper state managment for containers and the modals in those containers.
+ * Proper state management for containers and the modals in those containers.
  * Simplified, but inspired by react-overlay's ModalManager class.
  * Used by the Modal to ensure proper styling of containers.
  */
@@ -11929,7 +12073,7 @@ function () {
 
         this.data.splice(containerIdx, 1);
       } else if (this.hideSiblingNodes) {
-        // Otherwise make sure the next top modal is visible to a screan reader.
+        // Otherwise make sure the next top modal is visible to a screen reader.
         var nextTop = data.modals[data.modals.length - 1]; // as soon as a modal is adding its modalRef is undefined. it can't set
         // aria-hidden because the dom element doesn't exist either
         // when modal was unmounted before modalRef gets null
@@ -12053,14 +12197,14 @@ exports.ariaHidden = ariaHidden;
 exports.ariaHiddenSiblings = ariaHiddenSiblings;
 var BLACKLIST = ['template', 'script', 'style'];
 
-function isHidable(node) {
+function isHideable(node) {
   return node.nodeType === 1 && BLACKLIST.indexOf(node.tagName.toLowerCase()) === -1;
 }
 
 function siblings(container, mount, currentNode, callback) {
   var blacklist = [mount, currentNode];
   [].forEach.call(container.children, function (node) {
-    if (blacklist.indexOf(node) === -1 && isHidable(node)) {
+    if (blacklist.indexOf(node) === -1 && isHideable(node)) {
       callback(node);
     }
   });
@@ -12150,7 +12294,7 @@ var styles = function styles(theme) {
       cursor: 'pointer',
       '&:focus': {
         // Show that it's not an text input
-        background: theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.05)',
+        backgroundColor: theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.05)',
         borderRadius: 0 // Reset Chrome style
 
       },
@@ -12163,6 +12307,9 @@ var styles = function styles(theme) {
       },
       '&[multiple]': {
         height: 'auto'
+      },
+      '&:not([multiple]) option, &:not([multiple]) optgroup': {
+        backgroundColor: theme.palette.background.paper
       }
     },
 
@@ -12506,10 +12653,16 @@ function (_React$Component) {
       if (this.props.defer) {
         // Wondering why we use two RAFs? Check this video out:
         // https://www.youtube.com/watch?v=cCOL7MC4Pl0
+        //
+        // The componentDidMount() method is called after the DOM nodes are inserted.
+        // The UI might not have rendering the changes. We request a frame.
         requestAnimationFrame(function () {
-          // The browser should be about to render the DOM that React commited at this point.
-          // We don't want to interrupt. Let's wait the next raf.
+          // The browser should be about to render the DOM nodes
+          // that React committed at this point.
+          // We don't want to interrupt. Let's wait the next frame.
           requestAnimationFrame(function () {
+            // The UI is up-to-date at this point.
+            // We can continue rendering the children.
             if (_this2.mounted) {
               _this2.setState({
                 mounted: true
@@ -12700,6 +12853,11 @@ function NotchedOutline(props) {
 }
 
  true ? NotchedOutline.propTypes = {
+  /**
+   * The content of the component.
+   */
+  children: _propTypes.default.node,
+
   /**
    * Override or extend the styles applied to the component.
    * See [CSS API](#css-api) below for more details.
@@ -13623,7 +13781,7 @@ function (_React$Component) {
    * This is useful when you want to trigger an action programmatically.
    * It currently only supports updatePosition() action.
    *
-   * @param {object} actions This object contains all posible actions
+   * @param {object} actions This object contains all possible actions
    * that can be triggered programmatically.
    */
   action: _propTypes.default.func,
@@ -14031,9 +14189,8 @@ function (_React$Component) {
           open = _this$props2.open,
           placementProps = _this$props2.placement,
           popperOptions = _this$props2.popperOptions,
-          theme = _this$props2.theme,
           transition = _this$props2.transition,
-          other = (0, _objectWithoutProperties2.default)(_this$props2, ["anchorEl", "children", "container", "disablePortal", "keepMounted", "modifiers", "open", "placement", "popperOptions", "theme", "transition"]);
+          other = (0, _objectWithoutProperties2.default)(_this$props2, ["anchorEl", "children", "container", "disablePortal", "keepMounted", "modifiers", "open", "placement", "popperOptions", "transition"]);
       var _this$state = this.state,
           exited = _this$state.exited,
           placement = _this$state.placement;
@@ -14277,11 +14434,20 @@ function (_React$Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
+      var _this2 = this;
+
       if (prevProps.container !== this.props.container || prevProps.disablePortal !== this.props.disablePortal) {
         this.setMountNode(this.props.container); // Only rerender if needed
 
         if (!this.props.disablePortal) {
-          this.forceUpdate(this.props.onRendered);
+          this.forceUpdate(function () {
+            if (_this2.props.onRendered) {
+              // This might be triggered earlier than the componentDidUpdate of a parent element.
+              // We need to account for it.
+              clearTimeout(_this2.renderedTimer);
+              _this2.renderedTimer = setTimeout(_this2.props.onRendered);
+            }
+          });
         }
       }
     }
@@ -14289,6 +14455,7 @@ function (_React$Component) {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
       this.mountNode = null;
+      clearTimeout(this.renderedTimer);
     }
   }, {
     key: "setMountNode",
@@ -14591,7 +14758,7 @@ var _NativeSelect = __webpack_require__(/*! ../NativeSelect/NativeSelect */ "./n
 var _NativeSelectInput = _interopRequireDefault(__webpack_require__(/*! ../NativeSelect/NativeSelectInput */ "./node_modules/@material-ui/core/NativeSelect/NativeSelectInput.js"));
 
 // @inheritedComponent Input
-// To replace with InputBase in v4.0.0
+// To replace with InputBase in v4
 var styles = _NativeSelect.styles;
 exports.styles = styles;
 
@@ -14823,8 +14990,6 @@ var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ ".
 
 var _classnames = _interopRequireDefault(__webpack_require__(/*! classnames */ "./node_modules/classnames/index.js"));
 
-var _keycode = _interopRequireDefault(__webpack_require__(/*! keycode */ "./node_modules/keycode/index.js"));
-
 var _warning = _interopRequireDefault(__webpack_require__(/*! warning */ "./node_modules/warning/warning.js"));
 
 var _utils = __webpack_require__(/*! @material-ui/utils */ "./node_modules/@material-ui/utils/index.es.js");
@@ -14874,7 +15039,7 @@ function (_React$Component) {
       }
 
       _this.setState({
-        // Perfom the layout computation outside of the render method.
+        // Perform the layout computation outside of the render method.
         menuMinWidth: _this.props.autoWidth ? null : _this.displayRef.clientWidth,
         open: open
       });
@@ -14963,7 +15128,9 @@ function (_React$Component) {
         return;
       }
 
-      if (['space', 'up', 'down'].indexOf((0, _keycode.default)(event)) !== -1) {
+      if ([' ', 'ArrowUp', 'ArrowDown', // The native select doesn't respond to enter on MacOS, but it's recommended by
+      // https://www.w3.org/TR/wai-aria-practices/examples/listbox/listbox-collapsible.html
+      'Enter'].indexOf(event.key) !== -1) {
         event.preventDefault(); // Opening the menu is going to blur the. It will be focused back when closed.
 
         _this.ignoreNextBlur = true;
@@ -15141,7 +15308,9 @@ function (_React$Component) {
         onKeyDown: this.handleKeyDown,
         onBlur: this.handleBlur,
         onClick: disabled || readOnly ? null : this.handleClick,
-        onFocus: onFocus
+        onFocus: onFocus // The id can help with end-to-end testing automation.
+        ,
+        id: name ? "select-".concat(name) : undefined
       }, SelectDisplayProps), display || _react.default.createElement("span", {
         dangerouslySetInnerHTML: {
           __html: '&#8203;'
@@ -15160,7 +15329,8 @@ function (_React$Component) {
         onClose: this.handleClose
       }, MenuProps, {
         MenuListProps: (0, _extends2.default)({
-          role: 'listbox'
+          role: 'listbox',
+          disableListWrap: true
         }, MenuProps.MenuListProps),
         PaperProps: (0, _extends2.default)({}, MenuProps.PaperProps, {
           style: (0, _extends2.default)({
@@ -16559,8 +16729,8 @@ function SvgIcon(props) {
   nativeColor: _propTypes.default.string,
 
   /**
-   * The shape-rendering attribute. The behavior of the different options is described
-   * [here](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/shape-rendering).
+   * The shape-rendering attribute. The behavior of the different options is described on the
+   * [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/shape-rendering).
    * If you are having issues with blurry icons you should investigate this property.
    */
   shapeRendering: _propTypes.default.string,
@@ -16986,7 +17156,7 @@ function (_React$Component) {
 
   (0, _createClass2.default)(Table, [{
     key: "useMemo",
-    // To replace with the corresponding Hook once Material-UI v4.0.0 is out:
+    // To replace with the corresponding Hook once Material-UI v4 is out:
     // https://reactjs.org/docs/hooks-reference.html#usememo
     value: function useMemo(contextValue) {
       var objectKeys = Object.keys(contextValue);
@@ -18814,6 +18984,7 @@ function (_React$Component) {
       var InputComponent = variantComponent[variant];
 
       var InputElement = _react.default.createElement(InputComponent, (0, _extends2.default)({
+        "aria-describedby": helperTextId,
         autoComplete: autoComplete,
         autoFocus: autoFocus,
         defaultValue: defaultValue,
@@ -18834,7 +19005,6 @@ function (_React$Component) {
       }, InputMore, InputProps));
 
       return _react.default.createElement(_FormControl.default, (0, _extends2.default)({
-        "aria-describedby": helperTextId,
         className: className,
         error: error,
         fullWidth: fullWidth,
@@ -18844,6 +19014,7 @@ function (_React$Component) {
         htmlFor: id,
         ref: this.labelRef
       }, InputLabelProps), label), select ? _react.default.createElement(_Select.default, (0, _extends2.default)({
+        "aria-describedby": helperTextId,
         value: value,
         input: InputElement
       }, SelectProps), children) : InputElement, helperText && _react.default.createElement(_FormHelperText.default, (0, _extends2.default)({
@@ -18910,7 +19081,7 @@ function (_React$Component) {
 
   /**
    * The id of the `input` element.
-   * Use that property to make `label` and `helperText` accessible for screen readers.
+   * Use this property to make `label` and `helperText` accessible for screen readers.
    */
   id: _propTypes.default.string,
 
@@ -18930,7 +19101,7 @@ function (_React$Component) {
   inputProps: _propTypes.default.object,
 
   /**
-   * Use that property to pass a ref callback to the native input component.
+   * Use this property to pass a ref callback to the native input component.
    */
   inputRef: _propTypes.default.oneOfType([_propTypes.default.func, _propTypes.default.object]),
 
@@ -19327,15 +19498,15 @@ function (_React$Component) {
     };
 
     _this.handleFocus = function (event) {
-      event.persist(); // The autoFocus of React might trigger the event before the componentDidMount.
+      // Workaround for https://github.com/facebook/react/issues/7769
+      // The autoFocus of React might trigger the event before the componentDidMount.
       // We need to account for this eventuality.
+      if (!_this.childrenRef) {
+        _this.childrenRef = event.currentTarget;
+      }
 
-      _this.focusTimer = setTimeout(function () {
-        // We need to make sure the focus hasn't moved since the event was triggered.
-        if (_this.childrenRef === document.activeElement) {
-          _this.handleEnter(event);
-        }
-      }, 0);
+      _this.handleEnter(event);
+
       var childrenProps = _this.props.children.props;
 
       if (childrenProps.onFocus) {
@@ -19790,8 +19961,6 @@ var _withStyles = _interopRequireDefault(__webpack_require__(/*! ../styles/withS
 
 var _helpers = __webpack_require__(/*! ../utils/helpers */ "./node_modules/@material-ui/core/utils/helpers.js");
 
-var _chainPropTypes = _interopRequireDefault(__webpack_require__(/*! ../utils/chainPropTypes */ "./node_modules/@material-ui/core/utils/chainPropTypes.js"));
-
 var styles = function styles(theme) {
   return {
     /* Styles applied to the root element. */
@@ -19933,6 +20102,11 @@ var styles = function styles(theme) {
     /* Styles applied to the root element if `color="error"`. */
     colorError: {
       color: theme.palette.error.main
+    },
+
+    /* Styles applied to the root element if `inline={true}`. */
+    inline: {
+      display: 'inline'
     }
   };
 };
@@ -19995,14 +20169,15 @@ function Typography(props) {
       componentProp = props.component,
       gutterBottom = props.gutterBottom,
       headlineMapping = props.headlineMapping,
+      inline = props.inline,
       internalDeprecatedVariant = props.internalDeprecatedVariant,
       noWrap = props.noWrap,
       paragraph = props.paragraph,
       theme = props.theme,
       variantProp = props.variant,
-      other = (0, _objectWithoutProperties2.default)(props, ["align", "classes", "className", "color", "component", "gutterBottom", "headlineMapping", "internalDeprecatedVariant", "noWrap", "paragraph", "theme", "variant"]);
+      other = (0, _objectWithoutProperties2.default)(props, ["align", "classes", "className", "color", "component", "gutterBottom", "headlineMapping", "inline", "internalDeprecatedVariant", "noWrap", "paragraph", "theme", "variant"]);
   var variant = getVariant(theme, variantProp);
-  var className = (0, _classnames.default)(classes.root, (_classNames = {}, (0, _defineProperty2.default)(_classNames, classes[variant], variant !== 'inherit'), (0, _defineProperty2.default)(_classNames, classes["color".concat((0, _helpers.capitalize)(color))], color !== 'default'), (0, _defineProperty2.default)(_classNames, classes.noWrap, noWrap), (0, _defineProperty2.default)(_classNames, classes.gutterBottom, gutterBottom), (0, _defineProperty2.default)(_classNames, classes.paragraph, paragraph), (0, _defineProperty2.default)(_classNames, classes["align".concat((0, _helpers.capitalize)(align))], align !== 'inherit'), _classNames), classNameProp);
+  var className = (0, _classnames.default)(classes.root, (_classNames = {}, (0, _defineProperty2.default)(_classNames, classes[variant], variant !== 'inherit'), (0, _defineProperty2.default)(_classNames, classes["color".concat((0, _helpers.capitalize)(color))], color !== 'default'), (0, _defineProperty2.default)(_classNames, classes.noWrap, noWrap), (0, _defineProperty2.default)(_classNames, classes.gutterBottom, gutterBottom), (0, _defineProperty2.default)(_classNames, classes.paragraph, paragraph), (0, _defineProperty2.default)(_classNames, classes["align".concat((0, _helpers.capitalize)(align))], align !== 'inherit'), (0, _defineProperty2.default)(_classNames, classes.inline, inline), _classNames), classNameProp);
   var Component = componentProp || (paragraph ? 'p' : headlineMapping[variant] || defaultHeadlineMapping[variant]) || 'span';
   return _react.default.createElement(Component, (0, _extends2.default)({
     className: className
@@ -20058,6 +20233,11 @@ function Typography(props) {
   headlineMapping: _propTypes.default.object,
 
   /**
+   *  Controls whether the Typography is inline or not.
+   */
+  inline: _propTypes.default.bool,
+
+  /**
    * A deprecated variant is used from an internal component. Users don't need
    * a deprecation warning here if they switched to the v2 theme. They already
    * get the mapping that will be applied in the next major release.
@@ -20077,10 +20257,15 @@ function Typography(props) {
   paragraph: _propTypes.default.bool,
 
   /**
+   * @ignore
+   */
+  theme: _propTypes.default.object.isRequired,
+
+  /**
    * Applies the theme typography styles.
    * Use `body1` as the default value with the legacy implementation and `body2` with the new one.
    */
-  variant: (0, _chainPropTypes.default)(_propTypes.default.oneOf(['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'subtitle1', 'subtitle2', 'body1', 'body2', 'caption', 'button', 'overline', 'srOnly', 'inherit', // deprecated
+  variant: (0, _utils.chainPropTypes)(_propTypes.default.oneOf(['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'subtitle1', 'subtitle2', 'body1', 'body2', 'caption', 'button', 'overline', 'srOnly', 'inherit', // deprecated
   'display4', 'display3', 'display2', 'display1', 'headline', 'title', 'subheading']), function (props) {
     var deprecatedVariants = ['display4', 'display3', 'display2', 'display1', 'headline', 'title', 'subheading'];
 
@@ -20096,6 +20281,7 @@ Typography.defaultProps = {
   color: 'default',
   gutterBottom: false,
   headlineMapping: defaultHeadlineMapping,
+  inline: false,
   noWrap: false,
   paragraph: false
 };
@@ -21151,7 +21337,7 @@ module.exports = _inherits;
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
-    default: obj
+    "default": obj
   };
 }
 
@@ -21186,7 +21372,7 @@ function _interopRequireWildcard(obj) {
       }
     }
 
-    newObj.default = obj;
+    newObj["default"] = obj;
     return newObj;
   }
 }
@@ -21427,6 +21613,14 @@ function defaultArrayMerge(target, source, options) {
 	})
 }
 
+function getMergeFunction(key, options) {
+	if (!options.customMerge) {
+		return deepmerge
+	}
+	var customMerge = options.customMerge(key);
+	return typeof customMerge === 'function' ? customMerge : deepmerge
+}
+
 function mergeObject(target, source, options) {
 	var destination = {};
 	if (options.isMergeableObject(target)) {
@@ -21438,7 +21632,7 @@ function mergeObject(target, source, options) {
 		if (!options.isMergeableObject(source[key]) || !target[key]) {
 			destination[key] = cloneUnlessOtherwiseSpecified(source[key], options);
 		} else {
-			destination[key] = deepmerge(target[key], source[key], options);
+			destination[key] = getMergeFunction(key, options)(target[key], source[key], options);
 		}
 	});
 	return destination
@@ -21528,8 +21722,24 @@ var FORWARD_REF_STATICS = {
     propTypes: true
 };
 
+var MEMO_STATICS = {
+    '$$typeof': true,
+    compare: true,
+    defaultProps: true,
+    displayName: true,
+    propTypes: true,
+    type: true
+};
+
 var TYPE_STATICS = {};
 TYPE_STATICS[ReactIs.ForwardRef] = FORWARD_REF_STATICS;
+
+function getStatics(component) {
+    if (ReactIs.isMemo(component)) {
+        return MEMO_STATICS;
+    }
+    return TYPE_STATICS[component['$$typeof']] || REACT_STATICS;
+}
 
 var defineProperty = Object.defineProperty;
 var getOwnPropertyNames = Object.getOwnPropertyNames;
@@ -21555,8 +21765,8 @@ function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
             keys = keys.concat(getOwnPropertySymbols(sourceComponent));
         }
 
-        var targetStatics = TYPE_STATICS[targetComponent['$$typeof']] || REACT_STATICS;
-        var sourceStatics = TYPE_STATICS[sourceComponent['$$typeof']] || REACT_STATICS;
+        var targetStatics = getStatics(targetComponent);
+        var sourceStatics = getStatics(sourceComponent);
 
         for (var i = 0; i < keys.length; ++i) {
             var key = keys[i];
@@ -22747,7 +22957,7 @@ function createTypography(palette, typography) {
     subtitle2: buildVariant(fontWeightMedium, 14, 1.57, 0.1),
     body1Next: buildVariant(fontWeightRegular, 16, 1.5, 0.15),
     body2Next: buildVariant(fontWeightRegular, 14, 1.5, 0.15),
-    buttonNext: buildVariant(fontWeightMedium, 14, 1.5, 0.4, caseAllCaps),
+    buttonNext: buildVariant(fontWeightMedium, 14, 1.75, 0.4, caseAllCaps),
     captionNext: buildVariant(fontWeightRegular, 12, 1.66, 0.4),
     overline: buildVariant(fontWeightRegular, 12, 2.66, 1, caseAllCaps)
   }; // To remove in v4
@@ -23120,11 +23330,15 @@ function mergeClasses() {
   }
 
   var nextClasses = (0, _extends2.default)({}, baseClasses);
+
+  if ( true && typeof newClasses === 'string') {
+     true ? (0, _warning.default)(false, ["Material-UI: the value `".concat(newClasses, "` ") + "provided to the classes property of ".concat((0, _utils.getDisplayName)(Component), " is incorrect."), 'You might want to use the className property instead.'].join('\n')) : undefined;
+    return baseClasses;
+  }
+
   Object.keys(newClasses).forEach(function (key) {
-    if (Component) {
-       true ? (0, _warning.default)(baseClasses[key] || !newClasses[key], ["Material-UI: the key `".concat(key, "` ") + "provided to the classes property is not implemented in ".concat((0, _utils.getDisplayName)(Component), "."), "You can only override one of the following: ".concat(Object.keys(baseClasses).join(','), ".")].join('\n')) : undefined;
-       true ? (0, _warning.default)(!newClasses[key] || typeof newClasses[key] === 'string', ["Material-UI: the key `".concat(key, "` ") + "provided to the classes property is not valid for ".concat((0, _utils.getDisplayName)(Component), "."), "You need to provide a non empty string instead of: ".concat(newClasses[key], ".")].join('\n')) : undefined;
-    }
+     true ? (0, _warning.default)(baseClasses[key] || !newClasses[key], ["Material-UI: the key `".concat(key, "` ") + "provided to the classes property is not implemented in ".concat((0, _utils.getDisplayName)(Component), "."), "You can only override one of the following: ".concat(Object.keys(baseClasses).join(','), ".")].join('\n')) : undefined;
+     true ? (0, _warning.default)(!newClasses[key] || typeof newClasses[key] === 'string', ["Material-UI: the key `".concat(key, "` ") + "provided to the classes property is not valid for ".concat((0, _utils.getDisplayName)(Component), "."), "You need to provide a non empty string instead of: ".concat(newClasses[key], ".")].join('\n')) : undefined;
 
     if (newClasses[key]) {
       nextClasses[key] = "".concat(baseClasses[key], " ").concat(newClasses[key]);
@@ -23516,7 +23730,7 @@ var generateClassName = (0, _createGenerateClassName.default)(); // Global index
 // We create the style sheet during at the creation of the component,
 // children are handled after the parents, so the order of style elements would be parent->child.
 // It is a problem though when a parent passes a className
-// which needs to override any childs styles.
+// which needs to override any child's styles.
 // StyleSheet of the child has a higher specificity, because of the source order.
 // So our solution is to render sheets them in the reverse order child->sheet, so
 // that parent has a higher specificity.
@@ -24055,35 +24269,6 @@ function getTransitionProps(props, options) {
     delay: style.transitionDelay
   };
 }
-
-/***/ }),
-
-/***/ "./node_modules/@material-ui/core/utils/chainPropTypes.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/@material-ui/core/utils/chainPropTypes.js ***!
-  \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-function chainPropTypes(propType1, propType2) {
-  /* istanbul ignore if */
-  if (false) {}
-
-  return function validate() {
-    return propType1.apply(void 0, arguments) || propType2.apply(void 0, arguments);
-  };
-}
-
-var _default = chainPropTypes;
-exports.default = _default;
 
 /***/ }),
 
@@ -24919,23 +25104,6 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ "./node_modules/@material-ui/icons/node_modules/@babel/runtime/helpers/inheritsLoose.js":
-/*!**********************************************************************************************!*\
-  !*** ./node_modules/@material-ui/icons/node_modules/@babel/runtime/helpers/inheritsLoose.js ***!
-  \**********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _inheritsLoose(subClass, superClass) {
-  subClass.prototype = Object.create(superClass.prototype);
-  subClass.prototype.constructor = subClass;
-  subClass.__proto__ = superClass;
-}
-
-module.exports = _inheritsLoose;
-
-/***/ }),
-
 /***/ "./node_modules/@material-ui/icons/node_modules/@babel/runtime/helpers/interopRequireDefault.js":
 /*!******************************************************************************************************!*\
   !*** ./node_modules/@material-ui/icons/node_modules/@babel/runtime/helpers/interopRequireDefault.js ***!
@@ -24945,245 +25113,11 @@ module.exports = _inheritsLoose;
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
-    default: obj
+    "default": obj
   };
 }
 
 module.exports = _interopRequireDefault;
-
-/***/ }),
-
-/***/ "./node_modules/@material-ui/icons/node_modules/recompose/getDisplayName.js":
-/*!**********************************************************************************!*\
-  !*** ./node_modules/@material-ui/icons/node_modules/recompose/getDisplayName.js ***!
-  \**********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var getDisplayName = function getDisplayName(Component) {
-  if (typeof Component === 'string') {
-    return Component;
-  }
-
-  if (!Component) {
-    return undefined;
-  }
-
-  return Component.displayName || Component.name || 'Component';
-};
-
-var _default = getDisplayName;
-exports.default = _default;
-
-/***/ }),
-
-/***/ "./node_modules/@material-ui/icons/node_modules/recompose/pure.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/@material-ui/icons/node_modules/recompose/pure.js ***!
-  \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@material-ui/icons/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _shouldUpdate = _interopRequireDefault(__webpack_require__(/*! ./shouldUpdate */ "./node_modules/@material-ui/icons/node_modules/recompose/shouldUpdate.js"));
-
-var _shallowEqual = _interopRequireDefault(__webpack_require__(/*! ./shallowEqual */ "./node_modules/@material-ui/icons/node_modules/recompose/shallowEqual.js"));
-
-var _setDisplayName = _interopRequireDefault(__webpack_require__(/*! ./setDisplayName */ "./node_modules/@material-ui/icons/node_modules/recompose/setDisplayName.js"));
-
-var _wrapDisplayName = _interopRequireDefault(__webpack_require__(/*! ./wrapDisplayName */ "./node_modules/@material-ui/icons/node_modules/recompose/wrapDisplayName.js"));
-
-var pure = function pure(BaseComponent) {
-  var hoc = (0, _shouldUpdate.default)(function (props, nextProps) {
-    return !(0, _shallowEqual.default)(props, nextProps);
-  });
-
-  if (true) {
-    return (0, _setDisplayName.default)((0, _wrapDisplayName.default)(BaseComponent, 'pure'))(hoc(BaseComponent));
-  }
-
-  return hoc(BaseComponent);
-};
-
-var _default = pure;
-exports.default = _default;
-
-/***/ }),
-
-/***/ "./node_modules/@material-ui/icons/node_modules/recompose/setDisplayName.js":
-/*!**********************************************************************************!*\
-  !*** ./node_modules/@material-ui/icons/node_modules/recompose/setDisplayName.js ***!
-  \**********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@material-ui/icons/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _setStatic = _interopRequireDefault(__webpack_require__(/*! ./setStatic */ "./node_modules/@material-ui/icons/node_modules/recompose/setStatic.js"));
-
-var setDisplayName = function setDisplayName(displayName) {
-  return (0, _setStatic.default)('displayName', displayName);
-};
-
-var _default = setDisplayName;
-exports.default = _default;
-
-/***/ }),
-
-/***/ "./node_modules/@material-ui/icons/node_modules/recompose/setStatic.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/@material-ui/icons/node_modules/recompose/setStatic.js ***!
-  \*****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var setStatic = function setStatic(key, value) {
-  return function (BaseComponent) {
-    /* eslint-disable no-param-reassign */
-    BaseComponent[key] = value;
-    /* eslint-enable no-param-reassign */
-
-    return BaseComponent;
-  };
-};
-
-var _default = setStatic;
-exports.default = _default;
-
-/***/ }),
-
-/***/ "./node_modules/@material-ui/icons/node_modules/recompose/shallowEqual.js":
-/*!********************************************************************************!*\
-  !*** ./node_modules/@material-ui/icons/node_modules/recompose/shallowEqual.js ***!
-  \********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@material-ui/icons/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _shallowEqual = _interopRequireDefault(__webpack_require__(/*! fbjs/lib/shallowEqual */ "./node_modules/fbjs/lib/shallowEqual.js"));
-
-var _default = _shallowEqual.default;
-exports.default = _default;
-
-/***/ }),
-
-/***/ "./node_modules/@material-ui/icons/node_modules/recompose/shouldUpdate.js":
-/*!********************************************************************************!*\
-  !*** ./node_modules/@material-ui/icons/node_modules/recompose/shouldUpdate.js ***!
-  \********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@material-ui/icons/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _inheritsLoose2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/inheritsLoose */ "./node_modules/@material-ui/icons/node_modules/@babel/runtime/helpers/inheritsLoose.js"));
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _setDisplayName = _interopRequireDefault(__webpack_require__(/*! ./setDisplayName */ "./node_modules/@material-ui/icons/node_modules/recompose/setDisplayName.js"));
-
-var _wrapDisplayName = _interopRequireDefault(__webpack_require__(/*! ./wrapDisplayName */ "./node_modules/@material-ui/icons/node_modules/recompose/wrapDisplayName.js"));
-
-var shouldUpdate = function shouldUpdate(test) {
-  return function (BaseComponent) {
-    var factory = (0, _react.createFactory)(BaseComponent);
-
-    var ShouldUpdate =
-    /*#__PURE__*/
-    function (_Component) {
-      (0, _inheritsLoose2.default)(ShouldUpdate, _Component);
-
-      function ShouldUpdate() {
-        return _Component.apply(this, arguments) || this;
-      }
-
-      var _proto = ShouldUpdate.prototype;
-
-      _proto.shouldComponentUpdate = function shouldComponentUpdate(nextProps) {
-        return test(this.props, nextProps);
-      };
-
-      _proto.render = function render() {
-        return factory(this.props);
-      };
-
-      return ShouldUpdate;
-    }(_react.Component);
-
-    if (true) {
-      return (0, _setDisplayName.default)((0, _wrapDisplayName.default)(BaseComponent, 'shouldUpdate'))(ShouldUpdate);
-    }
-
-    return ShouldUpdate;
-  };
-};
-
-var _default = shouldUpdate;
-exports.default = _default;
-
-/***/ }),
-
-/***/ "./node_modules/@material-ui/icons/node_modules/recompose/wrapDisplayName.js":
-/*!***********************************************************************************!*\
-  !*** ./node_modules/@material-ui/icons/node_modules/recompose/wrapDisplayName.js ***!
-  \***********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@material-ui/icons/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _getDisplayName = _interopRequireDefault(__webpack_require__(/*! ./getDisplayName */ "./node_modules/@material-ui/icons/node_modules/recompose/getDisplayName.js"));
-
-var wrapDisplayName = function wrapDisplayName(BaseComponent, hocName) {
-  return hocName + "(" + (0, _getDisplayName.default)(BaseComponent) + ")";
-};
-
-var _default = wrapDisplayName;
-exports.default = _default;
 
 /***/ }),
 
@@ -25206,7 +25140,7 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
-var _pure = _interopRequireDefault(__webpack_require__(/*! recompose/pure */ "./node_modules/@material-ui/icons/node_modules/recompose/pure.js"));
+var _pure = _interopRequireDefault(__webpack_require__(/*! recompose/pure */ "./node_modules/recompose/pure.js"));
 
 var _SvgIcon = _interopRequireDefault(__webpack_require__(/*! @material-ui/core/SvgIcon */ "./node_modules/@material-ui/core/SvgIcon/index.js"));
 
@@ -25223,6 +25157,35 @@ function createSvgIcon(path, displayName) {
 
 ;
 var _default = createSvgIcon;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/utils/chainPropTypes.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@material-ui/utils/chainPropTypes.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function chainPropTypes(propType1, propType2) {
+  /* istanbul ignore if */
+  if (false) {}
+
+  return function validate() {
+    return propType1.apply(void 0, arguments) || propType2.apply(void 0, arguments);
+  };
+}
+
+var _default = chainPropTypes;
 exports.default = _default;
 
 /***/ }),
@@ -25246,7 +25209,8 @@ exports.default = void 0;
 
 var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@material-ui/utils/node_modules/@babel/runtime/helpers/typeof.js"));
 
-var ReactIs = __webpack_require__(/*! react-is */ "./node_modules/react-is/index.js");
+var _reactIs = __webpack_require__(/*! react-is */ "./node_modules/react-is/index.js");
+
 /**
  * A factory that returns a propTypes validator that only accepts values that
  * are also accepted by React.createElement
@@ -25255,8 +25219,6 @@ var ReactIs = __webpack_require__(/*! react-is */ "./node_modules/react-is/index
  * @param {boolean} isRequired If `true` returns a validator
  *                             that will throw if nullish values are passed
  */
-
-
 function createComponentProp(isRequired) {
   /* istanbul ignore if */
   if (false) {}
@@ -25270,7 +25232,7 @@ function createComponentProp(isRequired) {
       if (isRequired) {
         message = "The ".concat(location, " `").concat(propName, "` is marked as required in `").concat(componentName, "`, ") + "but its value is `".concat((0, _typeof2.default)(prop), "`.");
       }
-    } else if (!ReactIs.isValidElementType(prop)) {
+    } else if (!(0, _reactIs.isValidElementType)(prop)) {
       var preciseType = (0, _typeof2.default)(prop);
       message = "Invalid ".concat(location, " `").concat(propName, "` of type `").concat(preciseType, "` ") + "supplied to `".concat(componentName, "`, expected a component.");
     }
@@ -25391,7 +25353,7 @@ exports.default = _default;
 /*!*****************************************************!*\
   !*** ./node_modules/@material-ui/utils/index.es.js ***!
   \*****************************************************/
-/*! exports provided: componentPropType, exactProp, getDisplayName, ponyfillGlobal */
+/*! exports provided: componentPropType, chainPropTypes, exactProp, getDisplayName, ponyfillGlobal */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25399,20 +25361,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _componentPropType__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./componentPropType */ "./node_modules/@material-ui/utils/componentPropType.js");
 /* harmony import */ var _componentPropType__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_componentPropType__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (default from non-harmony) */ __webpack_require__.d(__webpack_exports__, "componentPropType", function() { return _componentPropType__WEBPACK_IMPORTED_MODULE_0___default.a; });
-/* harmony import */ var _exactProp__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./exactProp */ "./node_modules/@material-ui/utils/exactProp.js");
-/* harmony import */ var _exactProp__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_exactProp__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony reexport (default from non-harmony) */ __webpack_require__.d(__webpack_exports__, "exactProp", function() { return _exactProp__WEBPACK_IMPORTED_MODULE_1___default.a; });
-/* harmony import */ var _getDisplayName__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getDisplayName */ "./node_modules/@material-ui/utils/getDisplayName.js");
-/* harmony import */ var _getDisplayName__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_getDisplayName__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony reexport (default from non-harmony) */ __webpack_require__.d(__webpack_exports__, "getDisplayName", function() { return _getDisplayName__WEBPACK_IMPORTED_MODULE_2___default.a; });
-/* harmony import */ var _ponyfillGlobal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ponyfillGlobal */ "./node_modules/@material-ui/utils/ponyfillGlobal.js");
-/* harmony import */ var _ponyfillGlobal__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_ponyfillGlobal__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony reexport (default from non-harmony) */ __webpack_require__.d(__webpack_exports__, "ponyfillGlobal", function() { return _ponyfillGlobal__WEBPACK_IMPORTED_MODULE_3___default.a; });
-/** @license Material-UI v3.0.0-alpha.1
+/* harmony import */ var _chainPropTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chainPropTypes */ "./node_modules/@material-ui/utils/chainPropTypes.js");
+/* harmony import */ var _chainPropTypes__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_chainPropTypes__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony reexport (default from non-harmony) */ __webpack_require__.d(__webpack_exports__, "chainPropTypes", function() { return _chainPropTypes__WEBPACK_IMPORTED_MODULE_1___default.a; });
+/* harmony import */ var _exactProp__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./exactProp */ "./node_modules/@material-ui/utils/exactProp.js");
+/* harmony import */ var _exactProp__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_exactProp__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony reexport (default from non-harmony) */ __webpack_require__.d(__webpack_exports__, "exactProp", function() { return _exactProp__WEBPACK_IMPORTED_MODULE_2___default.a; });
+/* harmony import */ var _getDisplayName__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getDisplayName */ "./node_modules/@material-ui/utils/getDisplayName.js");
+/* harmony import */ var _getDisplayName__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_getDisplayName__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony reexport (default from non-harmony) */ __webpack_require__.d(__webpack_exports__, "getDisplayName", function() { return _getDisplayName__WEBPACK_IMPORTED_MODULE_3___default.a; });
+/* harmony import */ var _ponyfillGlobal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ponyfillGlobal */ "./node_modules/@material-ui/utils/ponyfillGlobal.js");
+/* harmony import */ var _ponyfillGlobal__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_ponyfillGlobal__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony reexport (default from non-harmony) */ __webpack_require__.d(__webpack_exports__, "ponyfillGlobal", function() { return _ponyfillGlobal__WEBPACK_IMPORTED_MODULE_4___default.a; });
+/** @license Material-UI v3.0.0-alpha.3
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
+
 
 
 
@@ -25485,7 +25451,7 @@ module.exports = _extends;
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
-    default: obj
+    "default": obj
   };
 }
 
@@ -32044,192 +32010,6 @@ if (true) {
 }
 
 module.exports = warning;
-
-
-/***/ }),
-
-/***/ "./node_modules/keycode/index.js":
-/*!***************************************!*\
-  !*** ./node_modules/keycode/index.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// Source: http://jsfiddle.net/vWx8V/
-// http://stackoverflow.com/questions/5603195/full-list-of-javascript-keycodes
-
-/**
- * Conenience method returns corresponding value for given keyName or keyCode.
- *
- * @param {Mixed} keyCode {Number} or keyName {String}
- * @return {Mixed}
- * @api public
- */
-
-function keyCode(searchInput) {
-  // Keyboard Events
-  if (searchInput && 'object' === typeof searchInput) {
-    var hasKeyCode = searchInput.which || searchInput.keyCode || searchInput.charCode
-    if (hasKeyCode) searchInput = hasKeyCode
-  }
-
-  // Numbers
-  if ('number' === typeof searchInput) return names[searchInput]
-
-  // Everything else (cast to string)
-  var search = String(searchInput)
-
-  // check codes
-  var foundNamedKey = codes[search.toLowerCase()]
-  if (foundNamedKey) return foundNamedKey
-
-  // check aliases
-  var foundNamedKey = aliases[search.toLowerCase()]
-  if (foundNamedKey) return foundNamedKey
-
-  // weird character?
-  if (search.length === 1) return search.charCodeAt(0)
-
-  return undefined
-}
-
-/**
- * Compares a keyboard event with a given keyCode or keyName.
- *
- * @param {Event} event Keyboard event that should be tested
- * @param {Mixed} keyCode {Number} or keyName {String}
- * @return {Boolean}
- * @api public
- */
-keyCode.isEventKey = function isEventKey(event, nameOrCode) {
-  if (event && 'object' === typeof event) {
-    var keyCode = event.which || event.keyCode || event.charCode
-    if (keyCode === null || keyCode === undefined) { return false; }
-    if (typeof nameOrCode === 'string') {
-      // check codes
-      var foundNamedKey = codes[nameOrCode.toLowerCase()]
-      if (foundNamedKey) { return foundNamedKey === keyCode; }
-    
-      // check aliases
-      var foundNamedKey = aliases[nameOrCode.toLowerCase()]
-      if (foundNamedKey) { return foundNamedKey === keyCode; }
-    } else if (typeof nameOrCode === 'number') {
-      return nameOrCode === keyCode;
-    }
-    return false;
-  }
-}
-
-exports = module.exports = keyCode;
-
-/**
- * Get by name
- *
- *   exports.code['enter'] // => 13
- */
-
-var codes = exports.code = exports.codes = {
-  'backspace': 8,
-  'tab': 9,
-  'enter': 13,
-  'shift': 16,
-  'ctrl': 17,
-  'alt': 18,
-  'pause/break': 19,
-  'caps lock': 20,
-  'esc': 27,
-  'space': 32,
-  'page up': 33,
-  'page down': 34,
-  'end': 35,
-  'home': 36,
-  'left': 37,
-  'up': 38,
-  'right': 39,
-  'down': 40,
-  'insert': 45,
-  'delete': 46,
-  'command': 91,
-  'left command': 91,
-  'right command': 93,
-  'numpad *': 106,
-  'numpad +': 107,
-  'numpad -': 109,
-  'numpad .': 110,
-  'numpad /': 111,
-  'num lock': 144,
-  'scroll lock': 145,
-  'my computer': 182,
-  'my calculator': 183,
-  ';': 186,
-  '=': 187,
-  ',': 188,
-  '-': 189,
-  '.': 190,
-  '/': 191,
-  '`': 192,
-  '[': 219,
-  '\\': 220,
-  ']': 221,
-  "'": 222
-}
-
-// Helper aliases
-
-var aliases = exports.aliases = {
-  'windows': 91,
-  '⇧': 16,
-  '⌥': 18,
-  '⌃': 17,
-  '⌘': 91,
-  'ctl': 17,
-  'control': 17,
-  'option': 18,
-  'pause': 19,
-  'break': 19,
-  'caps': 20,
-  'return': 13,
-  'escape': 27,
-  'spc': 32,
-  'spacebar': 32,
-  'pgup': 33,
-  'pgdn': 34,
-  'ins': 45,
-  'del': 46,
-  'cmd': 91
-}
-
-/*!
- * Programatically add the following
- */
-
-// lower case chars
-for (i = 97; i < 123; i++) codes[String.fromCharCode(i)] = i - 32
-
-// numbers
-for (var i = 48; i < 58; i++) codes[i - 48] = i
-
-// function keys
-for (i = 1; i < 13; i++) codes['f'+i] = i + 111
-
-// numpad keys
-for (i = 0; i < 10; i++) codes['numpad '+i] = i + 96
-
-/**
- * Get by code
- *
- *   exports.name[13] // => 'Enter'
- */
-
-var names = exports.names = exports.title = {} // title for backward compat
-
-// Create reverse mapping
-for (i in codes) names[codes[i]] = i
-
-// Add aliases
-for (var alias in aliases) {
-  codes[alias] = aliases[alias]
-}
 
 
 /***/ }),
@@ -63466,7 +63246,7 @@ module.exports = _typeof;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/** @license React v16.7.0
+/** @license React v16.8.6
  * react-is.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -70067,7 +69847,7 @@ function (_React$Component) {
         body: JSON.stringify(newProfile)
       }).then(function () {
         Object(_dialogs_MessageDialog__WEBPACK_IMPORTED_MODULE_4__["openDialog"])({
-          message: 'Deployment pipeline started.'
+          message: 'Deployment pipeline on ' + _this.context.template + ' started.'
         });
       }).catch(function (err) {
         return console.error(err);

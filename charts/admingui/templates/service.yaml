@@ -1,17 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-{{- if .Values.service.name }}
   name: {{ .Values.service.name }}
-{{- else }}
-  name: {{ template "fullname" . }}
-{{- end }}
   labels:
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
-{{- if .Values.service.annotations }}
-  annotations:
-{{ toYaml .Values.service.annotations | indent 4 }}
-{{- end }}
+    app: {{ .Chart.Name }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -21,3 +13,4 @@ spec:
     name: http
   selector:
     app: {{ template "fullname" . }}
+
